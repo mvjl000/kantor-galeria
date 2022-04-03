@@ -9,7 +9,7 @@ const H1 = styled.h1`
 const Home: NextPage = () => {
   return (
     <div>
-      <H1>Hello nextjs</H1>
+      <H1>TESTING PRETTIER</H1>
     </div>
   );
 };
