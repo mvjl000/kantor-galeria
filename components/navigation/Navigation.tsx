@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Wrapper, BurgerButton, LogoWrapper } from './Navigation.styles';
+import {
+  BurgerButton,
+  LogoWrapper,
+  OuterWrapper,
+  Wrapper,
+  StyledNavigation,
+} from './Navigation.styles';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +15,7 @@ const Navigation: React.FC = () => {
   const toggleSideMenu = () => setIsOpen(!isOpen);
 
   return (
-    <Wrapper>
+    <OuterWrapper>
       <LogoWrapper>
         <Link href="/" passHref={true}>
           <a>
@@ -17,12 +23,24 @@ const Navigation: React.FC = () => {
           </a>
         </Link>
       </LogoWrapper>
-      <BurgerButton onClick={toggleSideMenu}>
+      <BurgerButton onClick={toggleSideMenu} isOpen={isOpen}>
         <div />
         <div />
         <div />
       </BurgerButton>
-    </Wrapper>
+      <Wrapper isOpen={isOpen}>
+        <StyledNavigation>
+          <ul>
+            <li>
+              <Link href="/">KURSY WALUT</Link>
+            </li>
+            <li>
+              <Link href="/kontakt">KONTAKT</Link>
+            </li>
+          </ul>
+        </StyledNavigation>
+      </Wrapper>
+    </OuterWrapper>
   );
 };
 
