@@ -2,8 +2,8 @@ import type { NextPage } from 'next';
 import styled from '@emotion/styled';
 
 const H1 = styled.h1`
-  color: ${({ theme }) => theme.fontColors.grey};
-  font-size: ${({ theme }) => theme.fontSizes.large};
+  color: ${({ theme }) => theme.font.color.grey};
+  font-size: ${({ theme }) => theme.font.size.large};
 `;
 
 const Home: NextPage = () => {
