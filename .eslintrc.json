@@ -16,6 +16,7 @@
         "proseWrap": "preserve",
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "no-unused-vars": 1
   }
 }
