@@ -166,8 +166,8 @@ export const BurgerButton = styled.button<SideMenuProps>`
     background-color: ${({ theme, isOpen }) => (isOpen ? theme.colors.white : theme.colors.black)};
     position: relative;
   }
-  div:nth-child(1),
-  div:nth-child(2) {
+  div:nth-of-type(1),
+  div:nth-of-type(2) {
     display: ${({ isOpen }) => (isOpen ? 'none' : 'block')};
   }
 
