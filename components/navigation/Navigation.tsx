@@ -35,10 +35,22 @@ const Navigation: React.FC = () => {
         <StyledNavigation>
           <ul>
             <li>
-              <Link href="/">KURSY WALUT</Link>
+              <Link href="/" passHref={false}>
+                <a>
+                  <span data-text="KURSY WALUT" className="text-split">
+                    KURSY WALUT
+                  </span>
+                </a>
+              </Link>
             </li>
             <li>
-              <Link href="/kontakt">KONTAKT</Link>
+              <Link href="/kontakt" passHref={false}>
+                <a>
+                  <span data-text="KONTAKT" className="text-split">
+                    KONTAKT
+                  </span>
+                </a>
+              </Link>
             </li>
           </ul>
         </StyledNavigation>
