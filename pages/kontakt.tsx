@@ -6,12 +6,12 @@ const H1 = styled.h1`
   font-size: ${({ theme }) => theme.font.size.large};
 `;
 
-const Home: NextPage = () => {
+const Contact: NextPage = () => {
   return (
     <div>
-      <H1>Home Page</H1>
+      <H1>Contact Page</H1>
     </div>
   );
 };
 
-export default Home;
+export default Contact;
