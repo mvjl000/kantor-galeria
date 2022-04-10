@@ -1,16 +1,32 @@
-import type { NextPage } from 'next';
-import styled from '@emotion/styled';
+import type { GetServerSideProps, NextPage, InferGetServerSidePropsType } from 'next';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import CurrenciesList from '../components/currencies/CurrenciesList/CurrenciesList';
+import Currency from '../components/currencies/Currency/Currency';
+import { CurrencyType } from './types';
 
-const H1 = styled.h1`
-  color: ${({ theme }) => theme.font.color.grey};
-  font-size: ${({ theme }) => theme.font.size.large};
-`;
+export const getServerSideProps: GetServerSideProps = async () => {
+  let fetchedCurrencies: CurrencyType[] = [];
+  try {
+    const responseData = await axios.get(`${process.env.API_URL}/currency`);
+    fetchedCurrencies = responseData.data.currencies;
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    props: {
+      currencies: fetchedCurrencies,
+    },
+  };
+};
 
-const Home: NextPage = () => {
+const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ currencies }) => {
   return (
-    <div>
-      <H1>Home Page</H1>
-    </div>
+    <CurrenciesList>
+      {currencies.map((item: CurrencyType) => (
+        <Currency key={item._id} data={item} />
+      ))}
+    </CurrenciesList>
   );
 };
 
