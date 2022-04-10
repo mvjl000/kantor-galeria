@@ -29,6 +29,9 @@ const Navigation: React.FC = () => {
         <div />
       </BurgerButton>
       <Wrapper isOpen={isOpen}>
+        <div className="mobileNavLogo">
+          <Image src="/images/kantor_logo_white.png" alt="Logo kantoru" width={121} height={30} />
+        </div>
         <StyledNavigation>
           <ul>
             <li>
