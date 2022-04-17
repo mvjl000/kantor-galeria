@@ -4,7 +4,6 @@ import axios from 'axios';
 import CurrenciesList from '../components/currencies/CurrenciesList/CurrenciesList';
 import Currency from '../components/currencies/Currency/Currency';
 import { CurrencyType } from './types';
-import { toast } from 'react-toastify';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let fetchedCurrencies: CurrencyType[] = [];
