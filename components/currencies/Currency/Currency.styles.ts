@@ -9,6 +9,18 @@ export const Wrapper = styled.div`
   padding: 10px 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
+
+  ${({ theme }) => theme.mq.desktop + 'and (orientation: landscape)'} {
+    padding: 15px 20px;
+  }
+
+  ${({ theme }) => theme.mq.bigDesktop} {
+    padding: 17px 0 17px 22px;
+  }
+
+  ${({ theme }) => theme.mq.huge} {
+    padding: 17px 22px;
+  }
 `;
 
 export const CurrencyInfoWrapper = styled.div`
@@ -26,12 +38,15 @@ export const CurrencyPriceWrapper = styled.div`
       font-weight: 500;
     }
   }
+
+  ${({ theme }) => theme.mq.huge} {
+    font-size: ${({ theme }) => theme.font.size.medium};
+  }
 `;
 
 export const FlagWrapper = styled.div`
   height: 35px;
   width: 35px;
-  background-color: #999;
 `;
 
 export const CurrencyName = styled.p`
@@ -49,4 +64,8 @@ export const CurrencyFullName = styled.p`
   font-size: ${({ theme }) => theme.font.size.xSmall};
   color: ${({ theme }) => theme.font.color.grey};
   font-weight: 300;
+
+  ${({ theme }) => theme.mq.huge} {
+    font-size: ${({ theme }) => theme.font.size.small};
+  }
 `;
