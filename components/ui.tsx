@@ -68,4 +68,10 @@ export const SubmitButton = styled.button`
     box-shadow: 0 0 0px 2px ${({ theme }) => theme.colors.black};
     outline: none;
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.grey};
+    box-shadow: none;
+    cursor: default;
+  }
 `;

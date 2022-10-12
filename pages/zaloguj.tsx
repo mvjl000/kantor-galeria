@@ -34,18 +34,38 @@ const AuthPage: NextPage = () => {
           console.log(values);
         }}
       >
-        {({ values }) => (
+        {({ values, handleChange, errors, touched, handleBlur }) => (
           <StyledForm>
             <InputWrapper>
               <label htmlFor="username">Nazwa użytkownika</label>
-              <StyledInput id="username" name="username" value={values.username} />
+              <StyledInput
+                id="username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Hasło</label>
-              <StyledInput id="password" name="password" type="password" value={values.password} />
+              <StyledInput
+                id="password"
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
             </InputWrapper>
             <SubmitButtonWrapper>
-              <SubmitButton type="submit">Zaloguj</SubmitButton>
+              <SubmitButton
+                disabled={
+                  Object.entries(errors).length !== 0 || Object.entries(touched).length === 0
+                }
+                type="submit"
+              >
+                Zaloguj
+              </SubmitButton>
             </SubmitButtonWrapper>
           </StyledForm>
         )}
