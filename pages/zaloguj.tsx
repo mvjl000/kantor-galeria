@@ -1,16 +1,20 @@
 import type { NextPage } from 'next';
 import styled from '@emotion/styled';
-import { Formik, Form } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { H1, InputWrapper, StyledInput, SubmitButton, SubmitButtonWrapper } from '../components/ui';
 import { flexColumnCenter } from '../styles/mixins';
 
 const StyledForm = styled(Form)`
   ${flexColumnCenter};
-  gap: 30px;
+  gap: 20px;
   margin: 50px auto 0;
   width: 75%;
   max-width: 500px;
+
+  ${({ theme }) => theme.mq.desktop} {
+    gap: 30px;
+  }
 `;
 
 const initialFormValues = {
@@ -45,6 +49,7 @@ const AuthPage: NextPage = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
+              <ErrorMessage name="username" component="p" />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Hasło</label>
@@ -56,6 +61,7 @@ const AuthPage: NextPage = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
+              <ErrorMessage name="password" component="p" />
             </InputWrapper>
             <SubmitButtonWrapper>
               <SubmitButton

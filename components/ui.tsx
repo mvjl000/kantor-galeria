@@ -19,8 +19,11 @@ export const H1 = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  ${flexColumnCenter};
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
+  min-height: 92px;
   width: 100%;
 
   label {
@@ -30,6 +33,12 @@ export const InputWrapper = styled.div`
     ${({ theme }) => theme.mq.desktop} {
       font-size: ${({ theme }) => theme.font.size.small};
     }
+  }
+
+  p {
+    margin-top: 2px;
+    font-size: ${({ theme }) => theme.font.size.xSmall};
+    color: red;
   }
 `;
 
