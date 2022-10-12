@@ -2,11 +2,15 @@ import type { NextPage } from 'next';
 import styled from '@emotion/styled';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { H1 } from '../components/ui';
+import { H1, InputWrapper, StyledInput, SubmitButton, SubmitButtonWrapper } from '../components/ui';
 import { flexColumnCenter } from '../styles/mixins';
 
 const StyledForm = styled(Form)`
   ${flexColumnCenter};
+  gap: 30px;
+  margin: 50px auto 0;
+  width: 75%;
+  max-width: 500px;
 `;
 
 const initialFormValues = {
@@ -32,7 +36,17 @@ const AuthPage: NextPage = () => {
       >
         {({ values }) => (
           <StyledForm>
-            <p>Form</p>
+            <InputWrapper>
+              <label htmlFor="username">Nazwa użytkownika</label>
+              <StyledInput id="username" name="username" value={values.username} />
+            </InputWrapper>
+            <InputWrapper>
+              <label htmlFor="password">Hasło</label>
+              <StyledInput id="password" name="password" type="password" value={values.password} />
+            </InputWrapper>
+            <SubmitButtonWrapper>
+              <SubmitButton type="submit">Zaloguj</SubmitButton>
+            </SubmitButtonWrapper>
           </StyledForm>
         )}
       </Formik>

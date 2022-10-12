@@ -13,7 +13,8 @@ export const theme: Theme = {
       small: '1.8rem',
       medium: '2.4rem',
       large: '3rem',
-      xLarge: '4rem',
+      xLarge: '3.5rem',
+      huge: '4rem',
     },
     color: {
       black: 'hsl(0, 0%, 0%)',
