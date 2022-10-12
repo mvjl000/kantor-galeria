@@ -13,8 +13,10 @@ const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSideMenu = () => {
-    document.body.classList.toggle('no-scroll');
-    setIsOpen(!isOpen);
+    if (window.innerWidth <= 1024) {
+      document.body.classList.toggle('no-scroll-menu');
+      setIsOpen(!isOpen);
+    }
   };
 
   return (
@@ -39,12 +41,12 @@ const Navigation: React.FC = () => {
           <ul>
             <li>
               <Link href="/" passHref={false}>
-                <a>KURSY WALUT</a>
+                <a onClick={() => toggleSideMenu()}>KURSY WALUT</a>
               </Link>
             </li>
             <li>
               <Link href="/kontakt" passHref={false}>
-                <a>KONTAKT</a>
+                <a onClick={() => toggleSideMenu()}>KONTAKT</a>
               </Link>
             </li>
           </ul>
