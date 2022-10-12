@@ -12,7 +12,10 @@ import {
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSideMenu = () => setIsOpen(!isOpen);
+  const toggleSideMenu = () => {
+    document.body.classList.toggle('no-scroll');
+    setIsOpen(!isOpen);
+  };
 
   return (
     <OuterWrapper>
@@ -36,20 +39,12 @@ const Navigation: React.FC = () => {
           <ul>
             <li>
               <Link href="/" passHref={false}>
-                <a>
-                  <span data-text="KURSY WALUT" className="text-split">
-                    KURSY WALUT
-                  </span>
-                </a>
+                <a>KURSY WALUT</a>
               </Link>
             </li>
             <li>
               <Link href="/kontakt" passHref={false}>
-                <a>
-                  <span data-text="KONTAKT" className="text-split">
-                    KONTAKT
-                  </span>
-                </a>
+                <a>KONTAKT</a>
               </Link>
             </li>
           </ul>

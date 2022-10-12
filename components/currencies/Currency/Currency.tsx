@@ -11,7 +11,7 @@ import {
 
 interface CurrencyProps {
   data: CurrencyType;
-  handleOpenModal: MouseEventHandler<HTMLDivElement>;
+  handleOpenModal: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Currency: FC<CurrencyProps> = ({ data, handleOpenModal }) => {

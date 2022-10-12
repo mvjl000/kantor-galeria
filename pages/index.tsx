@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage, InferGetServerSidePropsType } from 'next';
+import type { NextPage, InferGetStaticPropsType, GetStaticProps } from 'next';
 import { useState } from 'react';
 import axios from 'axios';
 import CurrenciesList from '../components/currencies/CurrenciesList/CurrenciesList';
@@ -10,7 +10,7 @@ import AreaChartComponent from '../components/AreaChart';
 
 Modal.setAppElement('#__next');
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   let fetchedCurrencies: CurrencyType[] = [];
   try {
     const responseData = await axios.get(`${process.env.API_URL}/currency`);
@@ -22,17 +22,20 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       currencies: fetchedCurrencies,
     },
+    revalidate: 1000 * 60 * 10,
   };
 };
 
-const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ currencies }) => {
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ currencies }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
+    document.body.classList.add('no-scroll');
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
+    document.body.classList.remove('no-scroll');
     setIsModalOpen(false);
   };
 

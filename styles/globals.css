@@ -12,6 +12,10 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+body.no-scroll {
+  overflow-y: hidden;
+}
+
 h1,
 h2,
 h3,

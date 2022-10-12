@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { flexCenter, flexLeft } from '../../../styles/mixins';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.button`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   border-radius: 8px;
   cursor: pointer;
   transition: 0.25s;
+  background-color: #fff;
 
   &:hover {
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -61,6 +62,7 @@ export const CurrencyName = styled.p`
   font-size: ${({ theme }) => theme.font.size.medium};
   color: ${({ theme }) => theme.font.color.black};
   font-weight: 300;
+  text-align: left;
   span {
     font-weight: 400;
   }
@@ -71,6 +73,7 @@ export const CurrencyFullName = styled.p`
   font-size: ${({ theme }) => theme.font.size.xSmall};
   color: ${({ theme }) => theme.font.color.grey};
   font-weight: 300;
+  text-align: left;
 
   ${({ theme }) => theme.mq.huge} {
     font-size: ${({ theme }) => theme.font.size.small};

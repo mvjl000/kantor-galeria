@@ -53,8 +53,6 @@ export const StyledNavigation = styled.nav`
       margin: 50px 0;
       a {
         text-decoration: none;
-      }
-      span {
         font-family: ${({ theme }) => theme.font.family.josefin};
         font-size: ${({ theme }) => theme.font.size.large};
         color: ${({ theme }) => theme.colors.white};
@@ -69,69 +67,15 @@ export const StyledNavigation = styled.nav`
       display: flex;
 
       li {
-        margin: 0 20px;
-        position: relative;
-        .text-split {
+        margin: 0 10px;
+        padding: 0 10px;
+        border-radius: 10px;
+        a {
           font-size: ${({ theme }) => theme.font.size.large};
           color: ${({ theme }) => theme.colors.black};
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          line-height: 1;
-          transition: color 0ms 200ms;
-        }
-
-        &:hover {
-          cursor: pointer;
-        }
-
-        &:hover .text-split {
-          color: transparent;
-          user-select: none;
-          transition-delay: 0ms;
-        }
-
-        & .text-split::before,
-        & .text-split::after {
-          position: absolute;
-          content: attr(data-text);
-          height: calc(0.5em);
-          overflow: hidden;
-          left: 0;
-          right: 0;
-          color: ${({ theme }) => theme.font.color.black};
-          transition: color 200ms ease-in-out, transform 200ms ease-in-out;
-          user-select: none;
-        }
-
-        &:hover .text-split::before,
-        &:hover .text-split::after {
-          color: ${({ theme }) => theme.font.color.black};
-          transform: skewX(15deg);
-        }
-
-        & .text-split::after {
-          bottom: 0;
-          display: flex;
-          align-items: flex-end;
-        }
-
-        &::before {
-          content: '';
-          position: absolute;
-          width: 110%;
-          left: -5%;
-          top: calc(50% - 2px);
-          height: 2px;
-          transform: scale(0);
-          background-color: ${({ theme }) => theme.font.color.grey};
-          border-radius: 20px;
-          z-index: 1;
-          transition: transform 200ms ease-in-out;
-        }
-
-        &:hover::before {
-          transform: scale(1);
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
