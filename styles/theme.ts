@@ -1,4 +1,6 @@
-export const theme = {
+import { Theme } from '@emotion/react';
+
+export const theme: Theme = {
   colors: {
     white: 'hsl(0, 0%, 100%)',
     black: 'hsl(0, 0%, 0%)',
@@ -19,6 +21,11 @@ export const theme = {
     family: {
       roboto: '"Roboto Condensed", sans-serif',
       josefin: '"Josefin Sans", sans-serif',
+    },
+    weight: {
+      light: 300,
+      medium: 400,
+      bold: 600,
     },
   },
   mq: {

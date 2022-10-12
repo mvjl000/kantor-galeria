@@ -23,6 +23,11 @@ declare module '@emotion/react' {
         roboto: string;
         josefin: string;
       };
+      weight: {
+        light: number;
+        medium: number;
+        bold: number;
+      };
     };
     mq: {
       tablet: string;
