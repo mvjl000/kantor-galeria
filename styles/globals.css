@@ -12,8 +12,13 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+body.no-scroll-menu {
+  background-color: #000;
+  overflow: hidden;
+}
+
 body.no-scroll {
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 h1,

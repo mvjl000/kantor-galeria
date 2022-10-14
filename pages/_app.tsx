@@ -3,14 +3,26 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from '../styles/theme';
 import '../styles/globals.css';
 import Layout from '../components/Layout';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <>
+      <Head>
+        <link rel="icon" href="/icons/euro.png" />
+        <link rel="apple-touch-icon" href="/icons/euro.png" />
+        <meta
+          name="description"
+          content="Kantor Galeria Rzeszów - wymieniaj waluty po atrakcyjnych kursach w świetnej lokalizacji. Zobacz aktualne kursy euro, dolara, funta i ponad 20 innych walut!"
+        />
+        <title>Kantor Galeria Rzeszów</title>
+      </Head>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </>
   );
 }
 

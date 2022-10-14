@@ -1,10 +1,5 @@
 import type { NextPage } from 'next';
-import styled from '@emotion/styled';
-
-const H1 = styled.h1`
-  color: ${({ theme }) => theme.font.color.grey};
-  font-size: ${({ theme }) => theme.font.size.large};
-`;
+import { H1 } from '../components/ui';
 
 const Contact: NextPage = () => {
   return (

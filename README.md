@@ -1,6 +1,6 @@
 ## Currency Exchange Point website
 
-# This is a refactor of already existing website. [Check old version here](https://kantor-galeria.pl)
+# This is a refactor of already existing website. [Check the old version here](https://kantor-galeria.pl)
 
 First, run the development server:
 
