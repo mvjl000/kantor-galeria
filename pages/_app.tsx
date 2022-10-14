@@ -4,6 +4,7 @@ import { theme } from '../styles/theme';
 import '../styles/globals.css';
 import Layout from '../components/Layout';
 import Head from 'next/head';
+import { trpc } from '../utils/trpc';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,4 +27,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);

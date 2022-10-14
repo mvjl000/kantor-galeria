@@ -7,6 +7,7 @@ import { CurrencyType } from './types';
 import Modal from 'react-modal';
 import { StyledModal } from '../components/modal/Modal.styles';
 import AreaChartComponent from '../components/AreaChart';
+import { trpc } from '../utils/trpc';
 
 Modal.setAppElement('#__next');
 
@@ -28,6 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ currencies }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const hello = trpc.hello.useQuery({ text: 'client' });
 
   const handleOpenModal = () => {
     document.body.classList.add('no-scroll');
@@ -41,9 +43,9 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ curren
 
   return (
     <CurrenciesList>
-      {currencies.map((item: CurrencyType) => (
+      {/* {currencies.map((item: CurrencyType) => (
         <Currency key={item._id} data={item} handleOpenModal={handleOpenModal} />
-      ))}
+      ))} */}
       <StyledModal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
