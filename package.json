@@ -24,11 +24,13 @@
     "@emotion/styled": "^11.8.1",
     "@types/react-modal": "^3.13.1",
     "axios": "^0.26.1",
+    "formik": "^2.2.9",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-modal": "^3.14.4",
-    "recharts": "^2.1.9"
+    "recharts": "^2.1.9",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

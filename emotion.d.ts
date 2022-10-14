@@ -14,6 +14,8 @@ declare module '@emotion/react' {
         small: string;
         medium: string;
         large: string;
+        xLarge: string;
+        huge: string;
       };
       color: {
         black: string;
@@ -22,6 +24,11 @@ declare module '@emotion/react' {
       family: {
         roboto: string;
         josefin: string;
+      };
+      weight: {
+        light: number;
+        medium: number;
+        bold: number;
       };
     };
     mq: {

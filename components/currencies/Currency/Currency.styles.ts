@@ -41,9 +41,9 @@ export const CurrencyPriceWrapper = styled.div`
   p {
     font-size: ${({ theme }) => theme.font.size.small};
     color: ${({ theme }) => theme.font.color.black};
-    font-weight: 300;
+    font-weight: ${({ theme }) => theme.font.weight.light};
     span {
-      font-weight: 500;
+      font-weight: ${({ theme }) => theme.font.weight.medium};
     }
   }
 
@@ -61,10 +61,10 @@ export const CurrencyName = styled.p`
   margin-left: 15px;
   font-size: ${({ theme }) => theme.font.size.medium};
   color: ${({ theme }) => theme.font.color.black};
-  font-weight: 300;
+  font-weight: ${({ theme }) => theme.font.weight.light};
   text-align: left;
   span {
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.font.weight.medium};
   }
 `;
 
@@ -72,7 +72,7 @@ export const CurrencyFullName = styled.p`
   margin-left: 12px;
   font-size: ${({ theme }) => theme.font.size.xSmall};
   color: ${({ theme }) => theme.font.color.grey};
-  font-weight: 300;
+  font-weight: ${({ theme }) => theme.font.weight.light};
   text-align: left;
 
   ${({ theme }) => theme.mq.huge} {
