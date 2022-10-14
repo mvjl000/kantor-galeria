@@ -12,6 +12,12 @@ export const flexCenter = css`
   justify-content: center;
 `;
 
+export const flexLeft = css`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 export const flexColumnBetween = css`
   display: flex;
   flex-direction: column;
