@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ currencies }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const hello = trpc.hello.useQuery({ text: 'client' });
+  const { data, isLoading, isError } = trpc.hello.useQuery({ text: 'client' });
 
   const handleOpenModal = () => {
     document.body.classList.add('no-scroll');
@@ -40,6 +40,10 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ curren
     document.body.classList.remove('no-scroll');
     setIsModalOpen(false);
   };
+
+  if (isLoading) {
+    return <div style={{ width: '100vw', height: '100vh', backgroundColor: 'red' }}>Loading</div>;
+  }
 
   return (
     <CurrenciesList>
