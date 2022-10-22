@@ -2,7 +2,6 @@ import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from '
 import Link from 'next/link';
 import { H1, StyledTable } from '../components/ui';
 import styled from '@emotion/styled';
-import { MOCK_CURRENCIES } from '../mock-data';
 import { FlagWrapper } from '../components/currencies/Currency/Currency.styles';
 import axios from 'axios';
 import { CurrencyType } from './types';
