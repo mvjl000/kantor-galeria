@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useUser } from '@auth0/nextjs-auth0';
 import {
   BurgerButton,
   LogoWrapper,
@@ -11,6 +12,7 @@ import {
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
 
   const toggleSideMenu = () => {
     if (window.innerWidth <= 1024) {
@@ -49,6 +51,13 @@ const Navigation: React.FC = () => {
                 <a onClick={() => toggleSideMenu()}>KONTAKT</a>
               </Link>
             </li>
+            {user && (
+              <li>
+                <Link href="/admin" passHref={false}>
+                  <a onClick={() => toggleSideMenu()}>PANEL</a>
+                </Link>
+              </li>
+            )}
           </ul>
         </StyledNavigation>
       </Wrapper>
