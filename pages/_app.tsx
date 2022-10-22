@@ -4,6 +4,7 @@ import { theme } from '../styles/theme';
 import '../styles/globals.css';
 import Layout from '../components/Layout';
 import Head from 'next/head';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,9 +19,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Kantor Galeria Rzeszów</title>
       </Head>
       <ThemeProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <UserProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </UserProvider>
       </ThemeProvider>
     </>
   );
