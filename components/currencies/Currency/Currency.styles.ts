@@ -74,8 +74,4 @@ export const CurrencyFullName = styled.p`
   color: ${({ theme }) => theme.font.color.grey};
   font-weight: ${({ theme }) => theme.font.weight.light};
   text-align: left;
-
-  ${({ theme }) => theme.mq.huge} {
-    font-size: ${({ theme }) => theme.font.size.small};
-  }
 `;
