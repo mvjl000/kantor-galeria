@@ -1,13 +1,13 @@
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import Link from 'next/link';
-import { H1, StyledTable } from '../components/ui';
+import { H1, StyledTable, TableSubmitButton } from '../components/ui';
 import styled from '@emotion/styled';
 import { FlagWrapper } from '../components/currencies/Currency/Currency.styles';
 import axios from 'axios';
 import { CurrencyType } from './types';
 
 const TableWrapper = styled.div`
-  margin: 30px auto;
+  margin: 30px auto 20px;
   width: 90%;
   max-width: 1000px;
 `;
@@ -46,7 +46,7 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
         <StyledTable>
           <thead>
             <tr>
-              <th scope="col">Nazwa</th>
+              <th scope="col">Waluta</th>
               <th scope="col">Kupno</th>
               <th scope="col">Sprzedaż</th>
             </tr>
@@ -75,6 +75,7 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
             ))}
           </tbody>
         </StyledTable>
+        <TableSubmitButton disabled={false}>Zapisz</TableSubmitButton>
       </TableWrapper>
       <Link href="/api/auth/logout" passHref={false}>
         <a

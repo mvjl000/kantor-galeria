@@ -85,6 +85,33 @@ export const SubmitButton = styled.button`
   }
 `;
 
+export const TableSubmitButton = styled.button`
+  height: 48px;
+  padding: 0 20px;
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.font.size.xSmall};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  border-radius: 8px;
+  cursor: pointer;
+
+  /* alignment */
+  margin-top: 20px;
+  position: sticky;
+  bottom: 28px;
+  float: right;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    display: none;
+  }
+`;
+
 export const StyledTable = styled.table`
   width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.black};
