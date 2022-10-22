@@ -104,16 +104,35 @@ export const StyledTable = styled.table`
 
   tbody tr td {
     height: 50px;
-    font-size: ${({ theme }) => theme.font.size.small};
+    font-size: ${({ theme }) => theme.font.size.xSmall};
     font-weight: ${({ theme }) => theme.font.weight.medium};
     text-align: center;
     border: 1px solid black;
+
+    ${({ theme }) => theme.mq.desktop} {
+      font-size: ${({ theme }) => theme.font.size.small};
+    }
   }
 
-  tbody tr td.flag-cell div {
+  tbody tr td.flag-cell > div {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 12px;
     gap: 10px;
+  }
+
+  tbody tr td input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: ${({ theme }) => theme.font.size.xSmall};
+    font-weight: ${({ theme }) => theme.font.weight.medium};
+
+    ${({ theme }) => theme.mq.desktop} {
+      font-size: ${({ theme }) => theme.font.size.small};
+    }
   }
 `;

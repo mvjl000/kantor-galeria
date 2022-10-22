@@ -65,8 +65,12 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
                     {currency.name}
                   </div>
                 </td>
-                <td>{currency.buy}</td>
-                <td>{currency.sell}</td>
+                <td>
+                  <input value={currency.buy} />
+                </td>
+                <td>
+                  <input value={currency.sell} />
+                </td>
               </tr>
             ))}
           </tbody>
