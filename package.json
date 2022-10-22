@@ -20,6 +20,7 @@
     ]
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.9.2",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@types/react-modal": "^3.13.1",
@@ -30,7 +31,7 @@
     "react-dom": "18.0.0",
     "react-modal": "^3.14.4",
     "recharts": "^2.1.9",
-    "yup": "^0.32.11"
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
