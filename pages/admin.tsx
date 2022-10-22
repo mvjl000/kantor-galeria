@@ -1,16 +1,8 @@
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import Link from 'next/link';
-import { H1, StyledTable, TableSubmitButton } from '../components/ui';
-import styled from '@emotion/styled';
-import { FlagWrapper } from '../components/currencies/Currency/Currency.styles';
+import { H1 } from '../components/ui';
 import axios from 'axios';
-import { CurrencyType } from './types';
-
-const TableWrapper = styled.div`
-  margin: 30px auto 20px;
-  width: 90%;
-  max-width: 1000px;
-`;
+import CurrenciesTable from '../components/admin/CurrenciesTable';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
@@ -42,41 +34,7 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
   return (
     <>
       <H1>Panel Administratora</H1>
-      <TableWrapper>
-        <StyledTable>
-          <thead>
-            <tr>
-              <th scope="col">Waluta</th>
-              <th scope="col">Kupno</th>
-              <th scope="col">Sprzedaż</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currencies.map((currency: CurrencyType) => (
-              <tr key={currency._id}>
-                <td className="flag-cell">
-                  <div>
-                    <FlagWrapper>
-                      <img
-                        alt={`flaga ${currency.name}`}
-                        src={`${process.env.UPLOADS_URL}/${currency.image}`}
-                      />
-                    </FlagWrapper>
-                    {currency.name}
-                  </div>
-                </td>
-                <td>
-                  <input value={currency.buy} />
-                </td>
-                <td>
-                  <input value={currency.sell} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </StyledTable>
-        <TableSubmitButton disabled={false}>Zapisz</TableSubmitButton>
-      </TableWrapper>
+      <CurrenciesTable currencies={currencies} />
       <Link href="/api/auth/logout" passHref={false}>
         <a
           style={{
