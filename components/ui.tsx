@@ -84,3 +84,36 @@ export const SubmitButton = styled.button`
     cursor: default;
   }
 `;
+
+export const StyledTable = styled.table`
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  border-radius: 3px;
+  border-collapse: collapse;
+
+  thead tr th {
+    font-size: ${({ theme }) => theme.font.size.small};
+    font-weight: ${({ theme }) => theme.font.weight.bold};
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  tbody {
+    border-top: 1px solid black;
+  }
+
+  tbody tr td {
+    height: 50px;
+    font-size: ${({ theme }) => theme.font.size.small};
+    font-weight: ${({ theme }) => theme.font.weight.medium};
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  tbody tr td.flag-cell div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+`;
