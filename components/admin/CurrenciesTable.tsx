@@ -4,7 +4,7 @@ import { StyledTable, TableSubmitButton } from '../ui';
 import { CurrencyType } from '../../pages/types';
 import { FlagWrapper } from '../currencies/Currency/Currency.styles';
 
-const TableWrapper = styled.div`
+const TableWrapper = styled.section`
   margin: 30px auto 20px;
   width: 90%;
   max-width: 1000px;
@@ -40,10 +40,10 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
                 </div>
               </td>
               <td>
-                <input value={currency.buy} />
+                <input defaultValue={currency.buy} />
               </td>
               <td>
-                <input value={currency.sell} />
+                <input defaultValue={currency.sell} />
               </td>
             </tr>
           ))}

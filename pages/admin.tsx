@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { H1 } from '../components/ui';
 import axios from 'axios';
 import CurrenciesTable from '../components/admin/CurrenciesTable';
+import CurrencyForm from '../components/admin/CurrencyForm/CurrencyForm';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
@@ -35,6 +36,7 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
     <>
       <H1>Panel Administratora</H1>
       <CurrenciesTable currencies={currencies} />
+      <CurrencyForm />
       <Link href="/api/auth/logout" passHref={false}>
         <a
           style={{
