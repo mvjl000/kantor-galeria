@@ -9,7 +9,7 @@ interface FormTypes {
   fullName: string;
   buy: string;
   sell: string;
-  flag: File | undefined;
+  // flag: File | undefined;
 }
 
 const initialFormValues: FormTypes = {
@@ -17,7 +17,7 @@ const initialFormValues: FormTypes = {
   fullName: '',
   buy: '',
   sell: '',
-  flag: undefined,
+  // flag: undefined,
 };
 
 const schema = Yup.object().shape({
