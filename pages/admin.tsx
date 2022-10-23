@@ -4,26 +4,29 @@ import axios from 'axios';
 import CurrenciesTable from '../components/admin/CurrenciesTable';
 import CurrencyForm from '../components/admin/CurrencyForm/CurrencyForm';
 import Options from '../components/admin/Options/Options';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const responseData = await axios.get(`${process.env.API_URL}/currency`);
-    return {
-      props: {
-        currencies: responseData.data.currencies,
-        error: false,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        currencies: [],
-        error: true,
-      },
-    };
-  }
-};
+export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
+  async getServerSideProps() {
+    try {
+      const responseData = await axios.get(`${process.env.API_URL}/currency`);
+      return {
+        props: {
+          currencies: responseData.data.currencies,
+          error: false,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        props: {
+          currencies: [],
+          error: true,
+        },
+      };
+    }
+  },
+});
 
 const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   currencies,
