@@ -1,9 +1,9 @@
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
-import Link from 'next/link';
 import { H1 } from '../components/ui';
 import axios from 'axios';
 import CurrenciesTable from '../components/admin/CurrenciesTable';
 import CurrencyForm from '../components/admin/CurrencyForm/CurrencyForm';
+import Options from '../components/admin/Options/Options';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
@@ -37,21 +37,7 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
       <H1>Panel Administratora</H1>
       <CurrenciesTable currencies={currencies} />
       <CurrencyForm />
-      <Link href="/api/auth/logout" passHref={false}>
-        <a
-          style={{
-            display: 'block',
-            margin: '50px auto',
-            width: '80px',
-            height: '30px',
-            fontSize: '22px',
-            backgroundColor: '#ccc',
-            textAlign: 'center',
-          }}
-        >
-          logout
-        </a>
-      </Link>
+      <Options />
     </>
   );
 };
