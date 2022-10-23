@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexCenter, flexColumnCenter } from '../styles/mixins';
+import { flexCenter } from '../styles/mixins';
 
 export const H1 = styled.h1`
   margin-top: 40px;
@@ -15,6 +15,23 @@ export const H1 = styled.h1`
 
   ${({ theme }) => theme.mq.desktop} {
     font-size: ${({ theme }) => theme.font.size.huge};
+  }
+`;
+
+export const H2 = styled.h2`
+  margin-top: 40px;
+  padding: 0 20px;
+  color: ${({ theme }) => theme.font.color.black};
+  font-size: ${({ theme }) => theme.font.size.medium};
+  font-weight: ${({ theme }) => theme.font.weight.light};
+  text-align: center;
+
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.font.size.large};
+  }
+
+  ${({ theme }) => theme.mq.desktop} {
+    font-size: ${({ theme }) => theme.font.size.xLarge};
   }
 `;
 
@@ -67,7 +84,7 @@ export const SubmitButton = styled.button`
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.white};
-  border-radius: 3px;
+  border-radius: 5px;
   font-size: ${({ theme }) => theme.font.size.xSmall};
   cursor: pointer;
   transition: box-shadow 0.1s;
@@ -93,7 +110,7 @@ export const TableSubmitButton = styled.button`
   font-size: ${({ theme }) => theme.font.size.xSmall};
   font-weight: ${({ theme }) => theme.font.weight.bold};
   border: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
 
   /* alignment */
