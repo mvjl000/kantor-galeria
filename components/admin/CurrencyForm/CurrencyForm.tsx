@@ -3,6 +3,7 @@ import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import { FormWrapper, StyledForm } from './CurrencyForm.styles';
 import { H2, InputWrapper, StyledInput, SubmitButton, SubmitButtonWrapper } from '../../ui';
+import { trpc } from '../../../utils/trpc';
 
 interface FormTypes {
   name: string;
@@ -29,14 +30,27 @@ const schema = Yup.object().shape({
 });
 
 const CurrencyForm: React.FC = () => {
+  const test = trpc.createCurrency.useMutation();
+
   return (
     <FormWrapper>
       <H2>Dodaj walutę</H2>
       <Formik
         initialValues={initialFormValues}
         validationSchema={schema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async (values, { resetForm }) => {
+          try {
+            await test.mutate({
+              name: values.name,
+              image: 'qwerty',
+              fullname: values.fullName,
+              buy: 5.24,
+              sell: 6.15,
+            });
+            resetForm();
+          } catch (error) {
+            console.log('STH WRONG');
+          }
         }}
       >
         {({ values, handleChange, errors, touched, handleBlur }) => (

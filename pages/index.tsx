@@ -30,7 +30,8 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ currencies }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const hello = trpc.hello.useQuery({ text: 'Is it working?' });
-
+  const currenciesTrps = trpc.getCurrencies.useQuery();
+  console.log('CURRENCIES', currenciesTrps.data?.currencies);
   const handleOpenModal = () => {
     document.body.classList.add('no-scroll');
     setIsModalOpen(true);
