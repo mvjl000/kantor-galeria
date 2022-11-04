@@ -26,7 +26,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
           </tr>
         </thead>
         <tbody>
-          {currencies.map((currency) => (
+          {/* {currencies.map((currency) => (
             <tr key={currency._id}>
               <td className="flag-cell">
                 <div>
@@ -46,7 +46,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
                 <input defaultValue={currency.sell} />
               </td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </StyledTable>
       <TableSubmitButton disabled={false}>Zapisz</TableSubmitButton>

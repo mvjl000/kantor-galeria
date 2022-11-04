@@ -7,20 +7,21 @@ import { CurrencyType } from './types';
 import Modal from 'react-modal';
 import { StyledModal } from '../components/modal/Modal.styles';
 import AreaChartComponent from '../components/AreaChart';
+import { trpc } from '../utils/trpc';
 
 Modal.setAppElement('#__next');
 
 export const getStaticProps: GetStaticProps = async () => {
-  let fetchedCurrencies: CurrencyType[] = [];
-  try {
-    const responseData = await axios.get(`${process.env.API_URL}/currency`);
-    fetchedCurrencies = responseData.data.currencies;
-  } catch (error) {
-    console.log(error);
-  }
+  // let fetchedCurrencies: CurrencyType[] = [];
+  // try {
+  //   const responseData = await axios.get(`${process.env.API_URL}/currency`);
+  //   fetchedCurrencies = responseData.data.currencies;
+  // } catch (error) {
+  //   console.log(error);
+  // }
   return {
     props: {
-      currencies: fetchedCurrencies,
+      currencies: [],
     },
     revalidate: 1000 * 60 * 10,
   };
@@ -28,6 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ currencies }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const hello = trpc.hello.useQuery({ text: 'Is it working?' });
 
   const handleOpenModal = () => {
     document.body.classList.add('no-scroll');
@@ -41,9 +43,10 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ curren
 
   return (
     <CurrenciesList>
-      {currencies.map((item: CurrencyType) => (
+      {/* {currencies.map((item: CurrencyType) => (
         <Currency key={item._id} data={item} handleOpenModal={handleOpenModal} />
-      ))}
+      ))} */}
+      <p>{hello.data?.greeting}</p>
       <StyledModal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
