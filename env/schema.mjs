@@ -11,4 +11,5 @@ export const serverSchema = z.object({
   AUTH0_CLIENT_SECRET: z.string(),
   AUTH0_ALLOWED_CALLBACK: z.string().url(),
   AUTH0_ALLOWED_LOGOUT_URL: z.string().url(),
+  DATABASE_URL: z.string().url(),
 });
