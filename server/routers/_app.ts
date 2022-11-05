@@ -39,6 +39,30 @@ export const appRouter = router({
       console.log('currency', currency);
       return currency.fullname;
     }),
+  deleteCurrency: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      try {
+        const deleteCurrency = await prisma.currency.delete({
+          where: {
+            id: input.id,
+          },
+        });
+        return {
+          currencyId: deleteCurrency.id,
+          status: 200,
+        };
+      } catch (error) {
+        return {
+          currencyId: input.id,
+          status: 500,
+        };
+      }
+    }),
 });
 
 // export type definition of API

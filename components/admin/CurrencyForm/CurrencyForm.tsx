@@ -30,17 +30,26 @@ const schema = Yup.object().shape({
 });
 
 const CurrencyForm: React.FC = () => {
-  const test = trpc.createCurrency.useMutation();
-
+  const addCurrency = trpc.createCurrency.useMutation();
+  const deleteCurrency = trpc.deleteCurrency.useMutation();
+  const handleDelete = async () => {
+    try {
+      const result = await deleteCurrency.mutateAsync({ id: 3 });
+      console.log('DELETED', result);
+    } catch (error) {
+      console.log('EEEERRRORRR>>>>>>>>>', error);
+    }
+  };
   return (
     <FormWrapper>
       <H2>Dodaj walutę</H2>
+      <button onClick={handleDelete}>USUN</button>
       <Formik
         initialValues={initialFormValues}
         validationSchema={schema}
         onSubmit={async (values, { resetForm }) => {
           try {
-            await test.mutate({
+            await addCurrency.mutateAsync({
               name: values.name,
               image: 'qwerty',
               fullname: values.fullName,
