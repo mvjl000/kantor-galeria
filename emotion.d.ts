@@ -40,6 +40,7 @@ declare module '@emotion/react' {
     zIndex: {
       modal: number;
       menu: number;
+      burger: number;
     };
   }
 }

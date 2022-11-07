@@ -39,5 +39,6 @@ export const theme: Theme = {
   zIndex: {
     modal: 10,
     menu: 100,
+    burger: 101,
   },
 };
