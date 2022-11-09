@@ -5,17 +5,6 @@ import { protectedProcedure, publicProcedure, router } from '../trpc';
 const prisma = new PrismaClient();
 
 export const appRouter = router({
-  hello: publicProcedure
-    .input(
-      z.object({
-        text: z.string().nullish(),
-      }),
-    )
-    .query(({ input }) => {
-      return {
-        greeting: `hello ${input?.text ?? 'world'}`,
-      };
-    }),
   getCurrencies: publicProcedure.query(async () => {
     const currencies = await prisma.currency.findMany();
 
