@@ -34,7 +34,7 @@ const CurrencyForm: React.FC = () => {
   const deleteCurrency = trpc.deleteCurrency.useMutation();
   const handleDelete = async () => {
     try {
-      const result = await deleteCurrency.mutateAsync({ id: 3 });
+      const result = await deleteCurrency.mutateAsync({ id: 4 });
       console.log('DELETED', result);
     } catch (error) {
       console.log('EEEERRRORRR>>>>>>>>>', error);
