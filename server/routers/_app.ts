@@ -1,6 +1,6 @@
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { publicProcedure, router } from '../trpc';
+import { protectedProcedure, publicProcedure, router } from '../trpc';
 
 const prisma = new PrismaClient();
 
@@ -18,6 +18,7 @@ export const appRouter = router({
     }),
   getCurrencies: publicProcedure.query(async () => {
     const currencies = await prisma.currency.findMany();
+
     return {
       currencies,
     };
@@ -36,10 +37,10 @@ export const appRouter = router({
       const currency = await prisma.currency.create({
         data: input,
       });
-      console.log('currency', currency);
+
       return currency.fullname;
     }),
-  deleteCurrency: publicProcedure
+  deleteCurrency: protectedProcedure
     .input(
       z.object({
         id: z.number(),
@@ -52,6 +53,7 @@ export const appRouter = router({
             id: input.id,
           },
         });
+
         return {
           currencyId: deleteCurrency.id,
           status: 200,
