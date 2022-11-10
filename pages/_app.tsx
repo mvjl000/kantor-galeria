@@ -5,6 +5,7 @@ import '../styles/globals.css';
 import Layout from '../components/Layout';
 import Head from 'next/head';
 import { UserProvider } from '@auth0/nextjs-auth0';
+import { trpc } from '../utils/trpc';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -29,4 +30,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);
