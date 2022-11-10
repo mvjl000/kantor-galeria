@@ -1,10 +1,12 @@
+import { Decimal } from '@prisma/client/runtime';
+
 interface CurrencyType {
-  _id: string;
+  id: number;
   name: string;
   image: string;
   fullname: string;
-  buy: string;
-  sell: string;
+  buy: Decimal;
+  sell: Decimal;
 }
 
 export type CurrencyResponse = {

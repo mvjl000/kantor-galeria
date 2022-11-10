@@ -78,57 +78,6 @@ export const SubmitButtonWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-export const SubmitButton = styled.button`
-  height: 40px;
-  padding: 0 20px;
-  background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.white};
-  border-radius: 5px;
-  font-size: ${({ theme }) => theme.font.size.xSmall};
-  cursor: pointer;
-  transition: box-shadow 0.1s;
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 0px 2px ${({ theme }) => theme.colors.black};
-    outline: none;
-  }
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.grey};
-    box-shadow: none;
-    cursor: default;
-  }
-`;
-
-export const TableSubmitButton = styled.button`
-  height: 48px;
-  padding: 0 20px;
-  background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.font.size.xSmall};
-  font-weight: ${({ theme }) => theme.font.weight.bold};
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 5px;
-  cursor: pointer;
-
-  /* alignment */
-  margin-top: 20px;
-  position: sticky;
-  bottom: 28px;
-  float: right;
-
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
-
-  &:disabled {
-    display: none;
-  }
-`;
-
 export const StyledTable = styled.table`
   width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.black};
@@ -158,13 +107,22 @@ export const StyledTable = styled.table`
     }
   }
 
-  tbody tr td.flag-cell > div {
+  tbody tr td.flag-cell > button {
     height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: ${({ theme }) => theme.colors.white};
+    border: none;
     padding: 0 12px;
     gap: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.lightGrey};
+    }
   }
 
   tbody tr td input {
@@ -178,5 +136,11 @@ export const StyledTable = styled.table`
     ${({ theme }) => theme.mq.desktop} {
       font-size: ${({ theme }) => theme.font.size.small};
     }
+  }
+
+  tbody tr td.delete-td > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 `;

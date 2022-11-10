@@ -6,6 +6,7 @@ export const theme: Theme = {
     black: 'hsl(0, 0%, 0%)',
     grey: 'hsl(0, 0%, 80%)',
     lightGrey: 'hsl(0, 0%, 95%)',
+    red: 'hsl(0, 100%, 60%)',
   },
   font: {
     size: {
@@ -39,5 +40,6 @@ export const theme: Theme = {
   zIndex: {
     modal: 10,
     menu: 100,
+    burger: 101,
   },
 };

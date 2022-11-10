@@ -7,6 +7,7 @@ declare module '@emotion/react' {
       black: string;
       grey: string;
       lightGrey: string;
+      red: string;
     };
     font: {
       size: {
@@ -40,6 +41,7 @@ declare module '@emotion/react' {
     zIndex: {
       modal: number;
       menu: number;
+      burger: number;
     };
   }
 }

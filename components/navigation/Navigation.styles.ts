@@ -21,6 +21,7 @@ export const Wrapper = styled.div<SideMenuProps>`
   left: 0;
   background-color: ${({ theme }) => theme.colors.black};
   padding: 50px;
+  z-index: ${({ theme }) => theme.zIndex.menu};
 
   div.mobileNavLogo {
     position: absolute;
@@ -103,7 +104,8 @@ export const BurgerButton = styled.button<SideMenuProps>`
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 10;
+  z-index: ${({ theme }) => theme.zIndex.burger};
+
   div {
     width: 4rem;
     height: 0.3rem;
