@@ -47,7 +47,7 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
               Anuluj
             </CancelButton>
             <DeleteButton type="button" onClick={() => handleDeleteCurrency(currency.id)}>
-              Usuń USD
+              Usuń {currency.name}
             </DeleteButton>
           </div>
         </td>

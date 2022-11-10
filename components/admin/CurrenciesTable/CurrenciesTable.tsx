@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { StyledTable } from '../../ui';
 import { CurrencyType } from '../../../pages/types';
@@ -38,6 +38,11 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const deleteCurrency = trpc.deleteCurrency.useMutation();
   const utils = trpc.useContext();
 
+  useEffect(() => {
+    // Runs every time when currencies change to keep sortableItems up with currencies
+    setItems(currencies);
+  }, [currencies]);
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -65,6 +70,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   };
 
   const handleUpdateClickedCurrencies = (id: number) => {
+    // Toggle whether currency has visible actions buttons
     if (clickedCurrencies.includes(id)) {
       const filteredCurrencies = clickedCurrencies.filter((item) => item !== id);
       setClickedCurrencies(filteredCurrencies);
