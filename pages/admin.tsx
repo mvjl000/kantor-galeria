@@ -4,6 +4,7 @@ import CurrenciesTable from '../components/admin/CurrenciesTable';
 import CurrencyForm from '../components/admin/CurrencyForm/CurrencyForm';
 import Options from '../components/admin/Options/Options';
 import { trpc } from '../utils/trpc';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 const Admin: NextPage = () => {
   const currencies = trpc.getCurrencies.useQuery();
@@ -22,4 +23,4 @@ const Admin: NextPage = () => {
   );
 };
 
-export default Admin;
+export default withPageAuthRequired(Admin);
