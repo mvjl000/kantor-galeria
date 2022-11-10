@@ -32,6 +32,8 @@ const schema = Yup.object().shape({
 const CurrencyForm: React.FC = () => {
   const addCurrency = trpc.createCurrency.useMutation();
   const deleteCurrency = trpc.deleteCurrency.useMutation();
+  const utils = trpc.useContext();
+
   const handleDelete = async () => {
     try {
       const result = await deleteCurrency.mutateAsync({ id: 4 });
@@ -53,9 +55,11 @@ const CurrencyForm: React.FC = () => {
               name: values.name,
               image: 'qwerty',
               fullname: values.fullName,
-              buy: 5.24,
-              sell: 6.15,
+              buy: Number(values.buy),
+              sell: Number(values.sell),
             });
+            // Refetch table data
+            await utils.getCurrencies.fetch();
             resetForm();
           } catch (error) {
             console.log('STH WRONG');
