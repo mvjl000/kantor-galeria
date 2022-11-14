@@ -27,7 +27,6 @@ interface CurrenciesTableProps {
 
 const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const [items, setItems] = useState<CurrencyType[]>(currencies);
-  const [clickedCurrencies, setClickedCurrencies] = useState<number[]>([]);
   const deleteCurrency = trpc.deleteCurrency.useMutation();
   const utils = trpc.useContext();
 
@@ -62,16 +61,6 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
     }
   };
 
-  const handleUpdateClickedCurrencies = (id: number) => {
-    // Toggle whether currency has visible actions buttons
-    if (clickedCurrencies.includes(id)) {
-      const filteredCurrencies = clickedCurrencies.filter((item) => item !== id);
-      setClickedCurrencies(filteredCurrencies);
-    } else {
-      setClickedCurrencies([...clickedCurrencies, id]);
-    }
-  };
-
   const handleDeleteCurrency = async (id: number) => {
     try {
       await deleteCurrency.mutateAsync({ id });
@@ -90,6 +79,9 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
             <th scope="col">Waluta</th>
             <th scope="col">Kupno</th>
             <th scope="col">Sprzedaż</th>
+            <th scope="col" aria-label="Akcje">
+              <span className="visually-hidden">Akcje</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -103,8 +95,6 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
                 <TableCurrencyItem
                   key={currency.id}
                   currency={currency}
-                  clickedCurrencies={clickedCurrencies}
-                  handleUpdateClickedCurrencies={handleUpdateClickedCurrencies}
                   handleDeleteCurrency={handleDeleteCurrency}
                 />
               ))}
@@ -112,7 +102,9 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
           </DndContext>
         </tbody>
       </StyledTable>
-      <TableSubmitButton disabled={false}>Zapisz</TableSubmitButton>
+      <TableSubmitButton disabled={false} aria-label="Zapisz">
+        Zapisz
+      </TableSubmitButton>
     </TableWrapper>
   );
 };

@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CurrencyType } from '../../../pages/types';
 import { CancelButton, DeleteButton } from '../../buttons.styles';
 import { FlagWrapper } from '../../currencies/Currency/Currency.styles';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import Image from 'next/image';
+import ActionDots from '../../../public/icons/actionDots.svg';
 
 interface TableCurrencyItemProps {
   currency: CurrencyType;
-  clickedCurrencies: number[];
-  handleUpdateClickedCurrencies: (id: number) => void;
   handleDeleteCurrency: (id: number) => void;
 }
 
 const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
   currency,
-  clickedCurrencies,
-  handleUpdateClickedCurrencies,
   handleDeleteCurrency,
 }) => {
+  const [areActionsVisible, setAreActionsVisible] = useState(false);
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: currency.id,
   });
@@ -27,10 +26,14 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
     transition,
   };
 
+  const handleToggleActions = () => {
+    setAreActionsVisible(!areActionsVisible);
+  };
+
   return (
     <tr ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <td className="flag-cell">
-        <button type="button" onClick={() => handleUpdateClickedCurrencies(currency.id)}>
+        <div>
           <FlagWrapper>
             <img
               alt={`flaga ${currency.name}`}
@@ -38,19 +41,31 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
             />
           </FlagWrapper>
           {currency.name}
-        </button>
+        </div>
       </td>
-      {clickedCurrencies.includes(currency.id) ? (
-        <td colSpan={2} className="delete-td">
-          <div>
-            <CancelButton type="button" onClick={() => handleUpdateClickedCurrencies(currency.id)}>
-              Anuluj
-            </CancelButton>
-            <DeleteButton type="button" onClick={() => handleDeleteCurrency(currency.id)}>
-              Usuń {currency.name}
-            </DeleteButton>
-          </div>
-        </td>
+      {areActionsVisible ? (
+        <>
+          <td colSpan={2} className="delete-td">
+            <div>
+              <DeleteButton type="button" onClick={() => handleDeleteCurrency(currency.id)}>
+                Usuń {currency.name}
+              </DeleteButton>
+              <CancelButton type="button" onClick={handleToggleActions}>
+                Anuluj
+              </CancelButton>
+            </div>
+          </td>
+          <td>
+            <button
+              type="button"
+              className="currency-actions"
+              aria-label="Akcje"
+              onClick={handleToggleActions}
+            >
+              <Image src={ActionDots} width={5} height={25} />
+            </button>
+          </td>
+        </>
       ) : (
         <>
           <td>
@@ -60,6 +75,16 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
           <td>
             {/* @ts-ignore */}
             <input defaultValue={currency.sell} />
+          </td>
+          <td>
+            <button
+              type="button"
+              className="currency-actions"
+              aria-label="Akcje"
+              onClick={handleToggleActions}
+            >
+              <Image src={ActionDots} width={5} height={25} />
+            </button>
           </td>
         </>
       )}

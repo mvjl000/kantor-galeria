@@ -39,21 +39,15 @@ export const StyledTable = styled.table`
     }
   }
 
-  tbody tr td.flag-cell > button {
-    height: 100%;
-    width: 100%;
+  tbody tr td.flag-cell > div {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${({ theme }) => theme.colors.white};
-    border: none;
     padding: 0 12px;
     gap: 10px;
-    cursor: pointer;
-    transition: 0.15s;
 
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.lightGrey};
+    ${({ theme }) => theme.mq.tablet} {
+      padding: 0;
     }
   }
 
@@ -74,5 +68,21 @@ export const StyledTable = styled.table`
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+
+  button.currency-actions {
+    border: none;
+    background-color: ${({ theme }) => theme.colors.white};
+    height: 40px;
+    width: 25px;
+    padding: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+
+    &:hover,
+    &:focus {
+      background-color: ${({ theme }) => theme.colors.lightGrey};
+    }
   }
 `;
