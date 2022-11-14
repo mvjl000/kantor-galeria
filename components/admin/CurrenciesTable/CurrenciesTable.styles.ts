@@ -1,9 +1,22 @@
 import styled from '@emotion/styled';
+import { flexCenter } from '../../../styles/mixins';
 
 export const TableWrapper = styled.section`
   margin: 30px auto 20px;
   width: 90%;
   max-width: 1000px;
+  position: relative;
+`;
+
+export const TableLoader = styled.div`
+  ${flexCenter};
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: ${({ theme }) => theme.zIndex.laoder};
 `;
 
 export const StyledTable = styled.table`

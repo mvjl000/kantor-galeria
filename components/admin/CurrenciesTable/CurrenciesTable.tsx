@@ -19,7 +19,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import TableCurrencyItem from './TableCurrencyItem';
-import { StyledTable, TableWrapper } from './CurrenciesTable.styles';
+import { StyledTable, TableLoader, TableWrapper } from './CurrenciesTable.styles';
+import { Loader } from '../../ui';
 
 interface CurrenciesTableProps {
   currencies: CurrencyType[];
@@ -27,6 +28,8 @@ interface CurrenciesTableProps {
 
 const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const [items, setItems] = useState<CurrencyType[]>(currencies);
+  const [isLoading, setIsLoading] = useState(false);
+
   const deleteCurrency = trpc.deleteCurrency.useMutation();
   const reindexCurrencies = trpc.reindexCurrencies.useMutation();
   const utils = trpc.useContext();
@@ -57,7 +60,11 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
       };
     });
 
+    setIsLoading(true);
+
     await reindexCurrencies.mutateAsync({ currencies: formattedCurrencies });
+
+    setIsLoading(false);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -89,6 +96,11 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
 
   return (
     <TableWrapper>
+      {isLoading && (
+        <TableLoader>
+          <Loader />
+        </TableLoader>
+      )}
       <StyledTable>
         <thead>
           <tr>

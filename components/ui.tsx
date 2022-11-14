@@ -1,5 +1,15 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import { flexCenter } from '../styles/mixins';
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const H1 = styled.h1`
   margin-top: 40px;
@@ -76,4 +86,13 @@ export const SubmitButtonWrapper = styled.div`
   ${flexCenter};
   width: 100%;
   justify-content: flex-end;
+`;
+
+export const Loader = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 5px solid ${({ theme }) => theme.colors.black};
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: ${rotate} 1.5s ease-out infinite;
 `;
