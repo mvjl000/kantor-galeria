@@ -28,6 +28,7 @@ interface CurrenciesTableProps {
 const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const [items, setItems] = useState<CurrencyType[]>(currencies);
   const deleteCurrency = trpc.deleteCurrency.useMutation();
+  const reindexCurrencies = trpc.reindexCurrencies.useMutation();
   const utils = trpc.useContext();
 
   useEffect(() => {
@@ -47,16 +48,31 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
     useSensor(TouchSensor),
   );
 
+  const handleReindex = async (currencies: CurrencyType[]) => {
+    const formattedCurrencies = currencies.map((item) => {
+      return {
+        ...item,
+        buy: Number(item.buy),
+        sell: Number(item.sell),
+      };
+    });
+
+    await reindexCurrencies.mutateAsync({ currencies: formattedCurrencies });
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    // Checks if item has been moved far enough
+    // Checks if the item has been moved far enough
     if (over !== null && active.id !== over.id) {
       setItems((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
-        return arrayMove(items, oldIndex, newIndex);
+        const movedArray = arrayMove(items, oldIndex, newIndex);
+        handleReindex(movedArray);
+
+        return movedArray;
       });
     }
   };
