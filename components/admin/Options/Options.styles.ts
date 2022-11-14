@@ -27,25 +27,25 @@ export const SignOutButton = styled.a`
   margin: 0 auto;
   display: inline-flex;
   align-items: center;
-  height: 40px;
+  height: 48px;
   padding: 0 20px;
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.white};
   border-radius: 5px;
-  font-size: ${({ theme }) => theme.font.size.xSmall};
+  font-size: ${({ theme }) => theme.font.size.small};
+  font-weight: ${({ theme }) => theme.font.weight.medium};
   cursor: pointer;
-  transition: box-shadow 0.1s;
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 0px 2px ${({ theme }) => theme.colors.black};
     outline: none;
+    text-decoration: underline;
   }
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.grey};
-    box-shadow: none;
     cursor: default;
+    text-decoration: none;
   }
 `;
