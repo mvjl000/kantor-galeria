@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
-import { StyledTable } from '../../ui';
 import { CurrencyType } from '../../../pages/types';
 import { TableSubmitButton } from '../../buttons.styles';
 import { trpc } from '../../../utils/trpc';
@@ -21,12 +19,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import TableCurrencyItem from './TableCurrencyItem';
-
-const TableWrapper = styled.section`
-  margin: 30px auto 20px;
-  width: 90%;
-  max-width: 1000px;
-`;
+import { StyledTable, TableWrapper } from './CurrenciesTable.styles';
 
 interface CurrenciesTableProps {
   currencies: CurrencyType[];
