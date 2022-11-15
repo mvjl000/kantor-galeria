@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import { flexCenter } from '../styles/mixins';
+import { flexBetween } from '../styles/mixins';
 
 const rotate = keyframes`
   from {
@@ -83,9 +83,9 @@ export const StyledInput = styled.input`
 `;
 
 export const SubmitButtonWrapper = styled.div`
-  ${flexCenter};
+  ${flexBetween};
+  gap: 25px;
   width: 100%;
-  justify-content: flex-end;
 `;
 
 export const Loader = styled.div`
