@@ -38,6 +38,7 @@ export const theme: Theme = {
     huge: '@media (min-width: 1440px)',
   },
   zIndex: {
+    laoder: 2,
     modal: 10,
     menu: 100,
     burger: 101,

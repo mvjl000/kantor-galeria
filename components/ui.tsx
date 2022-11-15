@@ -1,5 +1,15 @@
 import styled from '@emotion/styled';
-import { flexCenter } from '../styles/mixins';
+import { keyframes } from '@emotion/react';
+import { flexBetween } from '../styles/mixins';
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const H1 = styled.h1`
   margin-top: 40px;
@@ -73,74 +83,16 @@ export const StyledInput = styled.input`
 `;
 
 export const SubmitButtonWrapper = styled.div`
-  ${flexCenter};
+  ${flexBetween};
+  gap: 25px;
   width: 100%;
-  justify-content: flex-end;
 `;
 
-export const StyledTable = styled.table`
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 3px;
-  border-collapse: collapse;
-
-  thead tr th {
-    font-size: ${({ theme }) => theme.font.size.small};
-    font-weight: ${({ theme }) => theme.font.weight.bold};
-    text-align: center;
-    padding: 10px 0;
-  }
-
-  tbody {
-    border-top: 1px solid black;
-  }
-
-  tbody tr td {
-    height: 50px;
-    font-size: ${({ theme }) => theme.font.size.xSmall};
-    font-weight: ${({ theme }) => theme.font.weight.medium};
-    text-align: center;
-    border: 1px solid black;
-
-    ${({ theme }) => theme.mq.desktop} {
-      font-size: ${({ theme }) => theme.font.size.small};
-    }
-  }
-
-  tbody tr td.flag-cell > button {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${({ theme }) => theme.colors.white};
-    border: none;
-    padding: 0 12px;
-    gap: 10px;
-    cursor: pointer;
-    transition: 0.15s;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.lightGrey};
-    }
-  }
-
-  tbody tr td input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    text-align: center;
-    font-size: ${({ theme }) => theme.font.size.xSmall};
-    font-weight: ${({ theme }) => theme.font.weight.medium};
-
-    ${({ theme }) => theme.mq.desktop} {
-      font-size: ${({ theme }) => theme.font.size.small};
-    }
-  }
-
-  tbody tr td.delete-td > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-  }
+export const Loader = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 5px solid ${({ theme }) => theme.colors.black};
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: ${rotate} 1.5s ease-out infinite;
 `;

@@ -1,28 +1,5 @@
 import styled from '@emotion/styled';
-
-export const SubmitButton = styled.button`
-  height: 40px;
-  padding: 0 20px;
-  background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.white};
-  border-radius: 5px;
-  font-size: ${({ theme }) => theme.font.size.xSmall};
-  cursor: pointer;
-  transition: box-shadow 0.1s;
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 0px 2px ${({ theme }) => theme.colors.black};
-    outline: none;
-  }
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.grey};
-    box-shadow: none;
-    cursor: default;
-  }
-`;
+import { flexBetween } from '../styles/mixins';
 
 export const Button = styled.button`
   height: 48px;
@@ -36,6 +13,18 @@ export const Button = styled.button`
   &:hover,
   &:focus {
     text-decoration: underline;
+  }
+`;
+
+export const SubmitButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.grey};
+    border-color: ${({ theme }) => theme.colors.grey};
+    cursor: default;
+    text-decoration: none;
   }
 `;
 
@@ -68,4 +57,27 @@ export const DeleteButton = styled(Button)`
   background-color: ${({ theme }) => theme.colors.red};
   color: ${({ theme }) => theme.colors.white};
   border-color: ${({ theme }) => theme.colors.red};
+`;
+
+export const ImageButton = styled.button`
+  ${flexBetween};
+  height: 50px;
+  flex-grow: 1;
+  padding: 0 5px;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  border-radius: 3px;
+  font-size: ${({ theme }) => theme.font.size.xSmall};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  background-color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+
+  img {
+    width: 35px;
+    height: 35px;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 `;

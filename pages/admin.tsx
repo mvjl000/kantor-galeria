@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { H1 } from '../components/ui';
-import CurrenciesTable from '../components/admin/CurrenciesTable';
+import CurrenciesTable from '../components/admin/CurrenciesTable/CurrenciesTable';
 import CurrencyForm from '../components/admin/CurrencyForm/CurrencyForm';
 import Options from '../components/admin/Options/Options';
 import { trpc } from '../utils/trpc';

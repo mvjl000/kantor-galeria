@@ -42,6 +42,7 @@ declare module '@emotion/react' {
       modal: number;
       menu: number;
       burger: number;
+      laoder: number;
     };
   }
 }
