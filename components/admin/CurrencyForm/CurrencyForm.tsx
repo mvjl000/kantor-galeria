@@ -5,6 +5,7 @@ import { FormWrapper, StyledForm } from './CurrencyForm.styles';
 import { H2, InputWrapper, StyledInput, SubmitButtonWrapper } from '../../ui';
 import { trpc } from '../../../utils/trpc';
 import { SubmitButton } from '../../buttons.styles';
+import FlagUpload from './FlagUpload/FlagUpload';
 
 interface FormTypes {
   name: string;
@@ -104,6 +105,7 @@ const CurrencyForm: React.FC = () => {
               <ErrorMessage name="sell" component="p" />
             </InputWrapper>
             <SubmitButtonWrapper>
+              <FlagUpload />
               <SubmitButton
                 disabled={
                   Object.entries(errors).length !== 0 || Object.entries(touched).length === 0

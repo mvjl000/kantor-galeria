@@ -12,7 +12,7 @@ export const appRouter = router({
       currencies,
     };
   }),
-  createCurrency: publicProcedure
+  createCurrency: protectedProcedure
     .input(
       z.object({
         name: z.string(),
@@ -50,6 +50,38 @@ export const appRouter = router({
       } catch (error) {
         return {
           currencyId: input.id,
+          status: 500,
+        };
+      }
+    }),
+  reindexCurrencies: protectedProcedure
+    .input(
+      z.object({
+        currencies: z
+          .object({
+            id: z.number(),
+            name: z.string(),
+            fullname: z.string(),
+            image: z.string(),
+            buy: z.number(),
+            sell: z.number(),
+          })
+          .array(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      try {
+        await prisma.currency.deleteMany({});
+
+        await prisma.currency.createMany({
+          data: input.currencies,
+        });
+
+        return {
+          status: 200,
+        };
+      } catch (error) {
+        return {
           status: 500,
         };
       }
