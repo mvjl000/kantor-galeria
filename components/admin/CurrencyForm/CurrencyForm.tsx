@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import { FormWrapper, StyledForm } from './CurrencyForm.styles';
-import { H2, InputWrapper, StyledInput, SubmitButtonWrapper } from '../../ui';
+import { H2, InputWrapper, Loader, StyledInput, SubmitButtonWrapper } from '../../ui';
 import { trpc } from '../../../utils/trpc';
 import { SubmitButton } from '../../buttons.styles';
 import FlagUpload from './FlagUpload/FlagUpload';
@@ -32,6 +32,7 @@ const schema = Yup.object().shape({
 });
 
 const CurrencyForm: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const addCurrency = trpc.createCurrency.useMutation();
   const utils = trpc.useContext();
 
@@ -43,6 +44,7 @@ const CurrencyForm: React.FC = () => {
         validationSchema={schema}
         onSubmit={async (values, { resetForm }) => {
           try {
+            setIsLoading(true);
             await addCurrency.mutateAsync({
               name: values.name,
               image: 'qwerty',
@@ -50,6 +52,7 @@ const CurrencyForm: React.FC = () => {
               buy: Number(values.buy),
               sell: Number(values.sell),
             });
+            setIsLoading(false);
             // Refetch table data
             await utils.getCurrencies.fetch();
             resetForm();
@@ -111,7 +114,7 @@ const CurrencyForm: React.FC = () => {
                   Object.entries(errors).length !== 0 || Object.entries(touched).length === 0
                 }
               >
-                Dodaj
+                {isLoading ? <Loader size="small" color="white" /> : 'Dodaj'}
               </SubmitButton>
             </SubmitButtonWrapper>
           </StyledForm>

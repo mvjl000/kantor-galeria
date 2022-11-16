@@ -86,9 +86,11 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
 
   const handleDeleteCurrency = async (id: number) => {
     try {
+      setIsLoading(true);
       await deleteCurrency.mutateAsync({ id });
       // Refetch table data
       await utils.getCurrencies.fetch();
+      setIsLoading(false);
     } catch (error) {
       console.log('EEEERRRORRR>>>>>>>>>', error);
     }
@@ -98,7 +100,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
     <TableWrapper>
       {isLoading && (
         <TableLoader>
-          <Loader />
+          <Loader size="big" color="black" />
         </TableLoader>
       )}
       <StyledTable>

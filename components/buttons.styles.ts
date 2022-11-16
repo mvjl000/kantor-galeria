@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexBetween } from '../styles/mixins';
+import { flexBetween, flexCenter } from '../styles/mixins';
 
 export const Button = styled.button`
   height: 48px;
@@ -17,6 +17,7 @@ export const Button = styled.button`
 `;
 
 export const SubmitButton = styled(Button)`
+  ${flexCenter};
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
 
