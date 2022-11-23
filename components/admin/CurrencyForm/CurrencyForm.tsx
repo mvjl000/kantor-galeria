@@ -51,15 +51,15 @@ const CurrencyForm: React.FC = () => {
             flagForm.append('file', values.flag);
             flagForm.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
 
-            const res = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!, {
+            const flagUploadResponse = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!, {
               method: 'POST',
               body: flagForm,
             });
-            const data: FlagUploadResponse = await res.json();
+            const flagData: FlagUploadResponse = await flagUploadResponse.json();
 
             await addCurrency.mutateAsync({
               name: values.name,
-              image: data.secure_url,
+              image: flagData.secure_url,
               fullname: values.fullName,
               buy: Number(values.buy),
               sell: Number(values.sell),
