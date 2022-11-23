@@ -6,13 +6,14 @@ import { H2, InputWrapper, Loader, StyledInput, SubmitButtonWrapper } from '../.
 import { trpc } from '../../../utils/trpc';
 import { SubmitButton } from '../../buttons.styles';
 import FlagUpload from './FlagUpload/FlagUpload';
+import { FlagUploadResponse } from '../../../pages/types';
 
 interface FormTypes {
   name: string;
   fullName: string;
   buy: string;
   sell: string;
-  // flag: File | undefined;
+  flag: Blob | string;
 }
 
 const initialFormValues: FormTypes = {
@@ -20,7 +21,7 @@ const initialFormValues: FormTypes = {
   fullName: '',
   buy: '',
   sell: '',
-  // flag: undefined,
+  flag: '',
 };
 
 const schema = Yup.object().shape({
@@ -28,7 +29,7 @@ const schema = Yup.object().shape({
   fullName: Yup.string().required('Podaj pełną nazwę!'),
   buy: Yup.string().required('Podaj cenę kupna!'),
   sell: Yup.string().required('Podaj cenę sprzedaży'),
-  // flag: Yup.mixed().required(),
+  flag: Yup.mixed().required(),
 });
 
 const CurrencyForm: React.FC = () => {
@@ -45,23 +46,36 @@ const CurrencyForm: React.FC = () => {
         onSubmit={async (values, { resetForm }) => {
           try {
             setIsLoading(true);
+
+            const flagForm = new FormData();
+            flagForm.append('file', values.flag);
+            flagForm.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+
+            const res = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!, {
+              method: 'POST',
+              body: flagForm,
+            });
+            const data: FlagUploadResponse = await res.json();
+
             await addCurrency.mutateAsync({
               name: values.name,
-              image: 'qwerty',
+              image: data.secure_url,
               fullname: values.fullName,
               buy: Number(values.buy),
               sell: Number(values.sell),
             });
-            setIsLoading(false);
+
             // Refetch table data
             await utils.getCurrencies.fetch();
-            resetForm();
           } catch (error) {
             console.log('STH WRONG');
+          } finally {
+            setIsLoading(false);
+            resetForm();
           }
         }}
       >
-        {({ values, handleChange, errors, touched, handleBlur }) => (
+        {({ values, handleChange, errors, touched, handleBlur, setFieldValue }) => (
           <StyledForm>
             <InputWrapper>
               <label htmlFor="name">Skrót</label>
@@ -108,11 +122,12 @@ const CurrencyForm: React.FC = () => {
               <ErrorMessage name="sell" component="p" />
             </InputWrapper>
             <SubmitButtonWrapper>
-              <FlagUpload />
+              <FlagUpload setFieldValue={setFieldValue} />
               <SubmitButton
                 disabled={
                   Object.entries(errors).length !== 0 || Object.entries(touched).length === 0
                 }
+                type="submit"
               >
                 {isLoading ? <Loader size="small" color="white" /> : 'Dodaj'}
               </SubmitButton>

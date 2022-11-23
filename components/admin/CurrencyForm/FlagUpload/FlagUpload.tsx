@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ImageButton } from '../../../buttons.styles';
 
-const FlagUpload: React.FC = () => {
+interface FlagUploadProps {
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+}
+
+const FlagUpload: React.FC<FlagUploadProps> = ({ setFieldValue }) => {
   const [file, setFile] = useState<File>();
-  const [previewUrl, setPreviewUrl] = useState<FileReader | string | ArrayBuffer | null>();
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [isValid, setIsValid] = useState(false);
 
   const filePickerRef = useRef<HTMLInputElement>(null);
@@ -14,24 +18,23 @@ const FlagUpload: React.FC = () => {
     }
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      setPreviewUrl(fileReader.result);
+      if (typeof fileReader.result === 'string') {
+        setPreviewUrl(fileReader.result);
+      }
     };
     fileReader.readAsDataURL(file);
   }, [file]);
 
-  const pickedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let pickedFile;
-    let fileIsValid = isValid;
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length === 1) {
-      pickedFile = event.target.files[0];
-      setFile(pickedFile);
+      const flagFile = event.target.files[0];
+
+      setFile(flagFile);
+      setFieldValue('flag', flagFile);
       setIsValid(true);
-      fileIsValid = true;
     } else {
       setIsValid(false);
-      fileIsValid = false;
     }
-    console.log('PICKED FILE >>>>', pickedFile);
   };
 
   const pickImageHandler = () => {
@@ -47,14 +50,16 @@ const FlagUpload: React.FC = () => {
         style={{ display: 'none' }}
         type="file"
         accept="image/svg+xml"
-        onChange={pickedHandler}
+        onChange={handleFileChange}
       />
       <ImageButton type="button" onClick={pickImageHandler}>
-        Wybierz flagę
-        {/* <img
-          src={FLAG_URL}
-          alt="Flaga nowej waluty"
-        /> */}
+        {file ? (
+          <>
+            Zmień flagę <img src={previewUrl} alt="Flaga" />
+          </>
+        ) : (
+          'Wybierz flagę'
+        )}
       </ImageButton>
     </>
   );
