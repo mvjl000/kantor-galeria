@@ -28,8 +28,8 @@ const schema = Yup.object().shape({
   name: Yup.string().required('Podaj skrót!'),
   fullName: Yup.string().required('Podaj pełną nazwę!'),
   buy: Yup.string().required('Podaj cenę kupna!'),
-  sell: Yup.string().required('Podaj cenę sprzedaży'),
-  flag: Yup.mixed().required(),
+  sell: Yup.string().required('Podaj cenę sprzedaży!'),
+  flag: Yup.mixed().required('Dodaj falgę!'),
 });
 
 const CurrencyForm: React.FC = () => {
@@ -122,7 +122,11 @@ const CurrencyForm: React.FC = () => {
               <ErrorMessage name="sell" component="p" />
             </InputWrapper>
             <SubmitButtonWrapper>
-              <FlagUpload setFieldValue={setFieldValue} />
+              <FlagUpload
+                hasFlag={!!values.flag}
+                setFieldValue={setFieldValue}
+                handleBlur={handleBlur}
+              />
               <SubmitButton
                 disabled={
                   Object.entries(errors).length !== 0 || Object.entries(touched).length === 0
@@ -131,6 +135,7 @@ const CurrencyForm: React.FC = () => {
               >
                 {isLoading ? <Loader size="small" color="white" /> : 'Dodaj'}
               </SubmitButton>
+              <ErrorMessage name="flag" component="p" />
             </SubmitButtonWrapper>
           </StyledForm>
         )}

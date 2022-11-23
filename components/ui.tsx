@@ -85,8 +85,14 @@ export const StyledInput = styled.input`
 export const SubmitButtonWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 85px;
-  gap: 25px;
+  column-gap: 25px;
   width: 100%;
+
+  p {
+    margin-top: 2px;
+    font-size: ${({ theme }) => theme.font.size.xSmall};
+    color: red;
+  }
 `;
 
 interface LoaderProps {
