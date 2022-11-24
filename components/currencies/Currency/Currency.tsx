@@ -19,7 +19,7 @@ const Currency: FC<CurrencyProps> = ({ data, handleOpenModal }) => {
     <Wrapper onClick={handleOpenModal}>
       <CurrencyInfoWrapper>
         <FlagWrapper>
-          <img alt={`flaga ${data.name}`} src={`https://kantor-pp.herokuapp.com/${data.image}`} />
+          <img alt={`flaga ${data.name}`} src={data.image} />
         </FlagWrapper>
         <CurrencyName>
           <span>{data.name} / </span>PLN

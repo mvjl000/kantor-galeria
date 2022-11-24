@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import { FormWrapper, StyledForm } from './CurrencyForm.styles';
-import { H2, InputWrapper, StyledInput, SubmitButtonWrapper } from '../../ui';
+import { H2, InputWrapper, Loader, StyledInput, SubmitButtonWrapper } from '../../ui';
 import { trpc } from '../../../utils/trpc';
 import { SubmitButton } from '../../buttons.styles';
 import FlagUpload from './FlagUpload/FlagUpload';
+import { FlagUploadResponse } from '../../../pages/types';
+import { errorToast } from '../../../utils/toasts';
 
 interface FormTypes {
   name: string;
   fullName: string;
   buy: string;
   sell: string;
-  // flag: File | undefined;
+  flag: Blob | string;
 }
 
 const initialFormValues: FormTypes = {
@@ -20,18 +22,19 @@ const initialFormValues: FormTypes = {
   fullName: '',
   buy: '',
   sell: '',
-  // flag: undefined,
+  flag: '',
 };
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Podaj skrót!'),
   fullName: Yup.string().required('Podaj pełną nazwę!'),
   buy: Yup.string().required('Podaj cenę kupna!'),
-  sell: Yup.string().required('Podaj cenę sprzedaży'),
-  // flag: Yup.mixed().required(),
+  sell: Yup.string().required('Podaj cenę sprzedaży!'),
+  flag: Yup.mixed().required('Dodaj falgę!'),
 });
 
 const CurrencyForm: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const addCurrency = trpc.createCurrency.useMutation();
   const utils = trpc.useContext();
 
@@ -43,22 +46,37 @@ const CurrencyForm: React.FC = () => {
         validationSchema={schema}
         onSubmit={async (values, { resetForm }) => {
           try {
+            setIsLoading(true);
+
+            const flagForm = new FormData();
+            flagForm.append('file', values.flag);
+            flagForm.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+
+            const flagUploadResponse = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL!, {
+              method: 'POST',
+              body: flagForm,
+            });
+            const flagData: FlagUploadResponse = await flagUploadResponse.json();
+
             await addCurrency.mutateAsync({
               name: values.name,
-              image: 'qwerty',
+              image: flagData.secure_url,
               fullname: values.fullName,
               buy: Number(values.buy),
               sell: Number(values.sell),
             });
+
             // Refetch table data
             await utils.getCurrencies.fetch();
-            resetForm();
           } catch (error) {
-            console.log('STH WRONG');
+            errorToast('Nie udało się dodać waluty!');
+          } finally {
+            setIsLoading(false);
+            resetForm();
           }
         }}
       >
-        {({ values, handleChange, errors, touched, handleBlur }) => (
+        {({ values, handleChange, errors, touched, handleBlur, setFieldValue }) => (
           <StyledForm>
             <InputWrapper>
               <label htmlFor="name">Skrót</label>
@@ -105,14 +123,20 @@ const CurrencyForm: React.FC = () => {
               <ErrorMessage name="sell" component="p" />
             </InputWrapper>
             <SubmitButtonWrapper>
-              <FlagUpload />
+              <FlagUpload
+                hasFlag={!!values.flag}
+                setFieldValue={setFieldValue}
+                handleBlur={handleBlur}
+              />
               <SubmitButton
                 disabled={
                   Object.entries(errors).length !== 0 || Object.entries(touched).length === 0
                 }
+                type="submit"
               >
-                Dodaj
+                {isLoading ? <Loader size="small" color="white" /> : 'Dodaj'}
               </SubmitButton>
+              <ErrorMessage name="flag" component="p" />
             </SubmitButtonWrapper>
           </StyledForm>
         )}

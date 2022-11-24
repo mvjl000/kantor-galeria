@@ -35,10 +35,7 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
       <td className="flag-cell">
         <div>
           <FlagWrapper>
-            <img
-              alt={`flaga ${currency.name}`}
-              src={`${process.env.UPLOADS_URL}/${currency.image}`}
-            />
+            <img alt={`flaga ${currency.name}`} src={currency.image} />
           </FlagWrapper>
           {currency.name}
         </div>

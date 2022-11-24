@@ -83,15 +83,28 @@ export const StyledInput = styled.input`
 `;
 
 export const SubmitButtonWrapper = styled.div`
-  ${flexBetween};
-  gap: 25px;
+  display: grid;
+  grid-template-columns: 1fr 85px;
+  column-gap: 25px;
   width: 100%;
+
+  p {
+    margin-top: 2px;
+    font-size: ${({ theme }) => theme.font.size.xSmall};
+    color: red;
+  }
 `;
 
-export const Loader = styled.div`
-  width: 40px;
-  height: 40px;
-  border: 5px solid ${({ theme }) => theme.colors.black};
+interface LoaderProps {
+  size: 'big' | 'small';
+  color: 'black' | 'white';
+}
+
+export const Loader = styled.div<LoaderProps>`
+  width: ${({ size }) => (size === 'big' ? '40px' : '20px')};
+  height: ${({ size }) => (size === 'big' ? '40px' : '20px')};
+  border: ${({ size }) => (size === 'big' ? '5px' : '3px')} solid
+    ${({ theme, color }) => (color === 'black' ? theme.colors.black : theme.colors.white)};
   border-bottom-color: transparent;
   border-radius: 50%;
   animation: ${rotate} 1.5s ease-out infinite;

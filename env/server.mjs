@@ -4,6 +4,7 @@
  * It has to be a `.mjs`-file to be imported there.
  */
 import { serverSchema } from './schema.mjs';
+import { env as clientEnv } from './client.mjs';
 
 export const formatErrors = (
   /** @type {import('zod').ZodFormattedError<Map<string,string>,string>} */
@@ -30,4 +31,4 @@ for (let key of Object.keys(_serverEnv.data)) {
   }
 }
 
-export const env = { ..._serverEnv.data };
+export const env = { ..._serverEnv.data, ...clientEnv };

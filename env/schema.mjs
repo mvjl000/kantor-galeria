@@ -13,3 +13,13 @@ export const serverSchema = z.object({
   AUTH0_ALLOWED_LOGOUT_URL: z.string().url(),
   DATABASE_URL: z.string().url(),
 });
+
+export const clientSchema = z.object({
+  NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL: z.string().url(),
+  NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: z.string(),
+});
+
+export const clientEnv = {
+  NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL,
+  NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+};
