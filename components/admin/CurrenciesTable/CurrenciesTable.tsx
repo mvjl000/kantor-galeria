@@ -21,6 +21,7 @@ import {
 import TableCurrencyItem from './TableCurrencyItem';
 import { StyledTable, TableLoader, TableWrapper } from './CurrenciesTable.styles';
 import { Loader } from '../../ui';
+import { errorToast } from '../../../utils/toasts';
 
 interface CurrenciesTableProps {
   currencies: CurrencyType[];
@@ -92,7 +93,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
       await utils.getCurrencies.fetch();
       setIsLoading(false);
     } catch (error) {
-      console.log('EEEERRRORRR>>>>>>>>>', error);
+      errorToast('Nie udało się usunąć waluty!');
     }
   };
 

@@ -7,6 +7,7 @@ import { trpc } from '../../../utils/trpc';
 import { SubmitButton } from '../../buttons.styles';
 import FlagUpload from './FlagUpload/FlagUpload';
 import { FlagUploadResponse } from '../../../pages/types';
+import { errorToast } from '../../../utils/toasts';
 
 interface FormTypes {
   name: string;
@@ -68,7 +69,7 @@ const CurrencyForm: React.FC = () => {
             // Refetch table data
             await utils.getCurrencies.fetch();
           } catch (error) {
-            console.log('STH WRONG');
+            errorToast('Nie udało się dodać waluty!');
           } finally {
             setIsLoading(false);
             resetForm();
