@@ -6,6 +6,8 @@ import Layout from '../components/Layout';
 import Head from 'next/head';
 import { UserProvider } from '@auth0/nextjs-auth0';
 import { trpc } from '../utils/trpc';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -24,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
+          <ToastContainer />
         </UserProvider>
       </ThemeProvider>
     </>

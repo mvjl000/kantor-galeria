@@ -21,6 +21,7 @@ import {
 import TableCurrencyItem from './TableCurrencyItem';
 import { StyledTable, TableLoader, TableWrapper } from './CurrenciesTable.styles';
 import { Loader } from '../../ui';
+import { errorToast } from '../../../utils/toasts';
 
 interface CurrenciesTableProps {
   currencies: CurrencyType[];
@@ -86,11 +87,13 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
 
   const handleDeleteCurrency = async (id: number) => {
     try {
+      setIsLoading(true);
       await deleteCurrency.mutateAsync({ id });
       // Refetch table data
       await utils.getCurrencies.fetch();
+      setIsLoading(false);
     } catch (error) {
-      console.log('EEEERRRORRR>>>>>>>>>', error);
+      errorToast('Nie udało się usunąć waluty!');
     }
   };
 
@@ -98,7 +101,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
     <TableWrapper>
       {isLoading && (
         <TableLoader>
-          <Loader />
+          <Loader size="big" color="black" />
         </TableLoader>
       )}
       <StyledTable>
