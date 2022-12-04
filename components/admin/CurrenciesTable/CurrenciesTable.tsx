@@ -36,7 +36,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const utils = trpc.useContext();
 
   useEffect(() => {
-    // Runs every time when currencies change to keep sortableItems up with currencies
+    // Runs every time the currencies change to keep the sortable items consistent with the currencies
     setItems(currencies);
   }, [currencies]);
 
@@ -91,10 +91,37 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
       await deleteCurrency.mutateAsync({ id });
       // Refetch table data
       await utils.getCurrencies.fetch();
-      setIsLoading(false);
     } catch (error) {
       errorToast('Nie udało się usunąć waluty!');
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleSaveTable = async () => {
+    console.log('SAVE TABLE', items);
+    // try {
+    //   setIsLoading(true);
+    // } catch (error) {
+    //   console.log('CLIENT ERR>', error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [currencyName, priceKey] = event.target.name.split('-');
+    const { value } = event.target;
+
+    const newCurrencies = items.map((currency) => {
+      if (currencyName !== currency.name) return currency;
+
+      return {
+        ...currency,
+        [priceKey]: value.replace(',', '.'),
+      };
+    });
+    setItems(newCurrencies);
   };
 
   return (
@@ -126,6 +153,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
                 <TableCurrencyItem
                   key={currency.id}
                   currency={currency}
+                  handleInputChange={handleInputChange}
                   handleDeleteCurrency={handleDeleteCurrency}
                 />
               ))}
@@ -133,7 +161,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
           </DndContext>
         </tbody>
       </StyledTable>
-      <TableSubmitButton disabled={false} aria-label="Zapisz">
+      <TableSubmitButton disabled={false} onClick={handleSaveTable} aria-label="Zapisz">
         Zapisz
       </TableSubmitButton>
     </TableWrapper>
