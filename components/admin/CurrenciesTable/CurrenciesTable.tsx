@@ -32,6 +32,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteCurrency = trpc.deleteCurrency.useMutation();
+  const updateCurrencies = trpc.updateCurrencies.useMutation();
   const reindexCurrencies = trpc.reindexCurrencies.useMutation();
   const utils = trpc.useContext();
 
@@ -53,19 +54,23 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   );
 
   const handleReindex = async (currencies: CurrencyType[]) => {
-    const formattedCurrencies = currencies.map((item) => {
+    const formattedCurrencies = currencies.map((item, index) => {
       return {
         ...item,
+        index,
         buy: Number(item.buy),
         sell: Number(item.sell),
       };
     });
 
     setIsLoading(true);
-
-    await reindexCurrencies.mutateAsync({ currencies: formattedCurrencies });
-
-    setIsLoading(false);
+    try {
+      await reindexCurrencies.mutateAsync({ currencies: formattedCurrencies });
+    } catch (error) {
+      errorToast('Nie udało się zmienić kolejności waluty!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -86,8 +91,8 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   };
 
   const handleDeleteCurrency = async (id: number) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await deleteCurrency.mutateAsync({ id });
       // Refetch table data
       await utils.getCurrencies.fetch();
@@ -99,14 +104,20 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   };
 
   const handleSaveTable = async () => {
-    console.log('SAVE TABLE', items);
-    // try {
-    //   setIsLoading(true);
-    // } catch (error) {
-    //   console.log('CLIENT ERR>', error);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    setIsLoading(true);
+    try {
+      const currencies = items.map((currency) => ({
+        id: currency.id,
+        buy: Number(currency.buy),
+        sell: Number(currency.sell),
+      }));
+
+      await updateCurrencies.mutateAsync({ currencies });
+    } catch (error) {
+      errorToast('Nie udało się zapisać zmian!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
