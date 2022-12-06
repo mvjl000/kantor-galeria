@@ -29,14 +29,7 @@ const Home: NextPage = () => {
 
   return (
     <CurrenciesList>
-      {[
-        ...currencies.data.currencies,
-        ...currencies.data.currencies,
-        ...currencies.data.currencies,
-        ...currencies.data.currencies,
-        ...currencies.data.currencies,
-        ...currencies.data.currencies,
-      ].map((item, index) => (
+      {currencies.data.currencies.map((item, index) => (
         <Currency key={index} data={item} handleOpenModal={handleOpenModal} />
       ))}
       <Modal isOpen={isModalOpen} onRequestClose={handleCloseModal} contentLabel="Wykres waluty">

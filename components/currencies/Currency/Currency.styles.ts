@@ -13,11 +13,6 @@ export const Wrapper = styled.button`
   transition: 0.25s;
   background-color: #fff;
 
-  &:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
-    border-color: transparent;
-  }
-
   ${({ theme }) => theme.mq.desktop + 'and (orientation: landscape)'} {
     padding: 15px 20px;
   }
@@ -32,7 +27,7 @@ export const Wrapper = styled.button`
 `;
 
 export const CurrencyInfoWrapper = styled.div`
-  ${flexLeft}
+  ${flexLeft};
 `;
 
 export const CurrencyPriceWrapper = styled.div`
@@ -53,8 +48,8 @@ export const CurrencyPriceWrapper = styled.div`
 `;
 
 export const FlagWrapper = styled.div`
-  height: 35px;
-  width: 35px;
+  min-height: 35px;
+  min-width: 35px;
 `;
 
 export const CurrencyName = styled.p`
