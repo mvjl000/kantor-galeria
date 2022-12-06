@@ -9,11 +9,13 @@ import ActionDots from '../../../public/icons/actionDots.svg';
 
 interface TableCurrencyItemProps {
   currency: CurrencyType;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleDeleteCurrency: (id: number) => void;
 }
 
 const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
   currency,
+  handleInputChange,
   handleDeleteCurrency,
 }) => {
   const [areActionsVisible, setAreActionsVisible] = useState(false);
@@ -66,12 +68,18 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
       ) : (
         <>
           <td>
-            {/* @ts-ignore */}
-            <input defaultValue={currency.buy} />
+            <input
+              name={`${currency.name}-buy`}
+              value={currency.buy.toString()}
+              onChange={handleInputChange}
+            />
           </td>
           <td>
-            {/* @ts-ignore */}
-            <input defaultValue={currency.sell} />
+            <input
+              name={`${currency.name}-sell`}
+              value={currency.sell.toString()}
+              onChange={handleInputChange}
+            />
           </td>
           <td>
             <button

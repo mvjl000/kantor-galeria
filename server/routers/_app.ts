@@ -1,17 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { Currency, Prisma, PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { protectedProcedure, publicProcedure, router } from '../trpc';
 
 const prisma = new PrismaClient();
 
 export const appRouter = router({
-  getCurrencies: publicProcedure.query(async () => {
-    const currencies = await prisma.currency.findMany();
-
-    return {
-      currencies,
-    };
-  }),
+  // CREATE
   createCurrency: protectedProcedure
     .input(
       z.object({
@@ -23,33 +17,67 @@ export const appRouter = router({
       }),
     )
     .mutation(async ({ input }) => {
+      const count = await prisma.currency.count();
+
       const currency = await prisma.currency.create({
-        data: input,
+        data: {
+          ...input,
+          index: count,
+        },
       });
 
       return currency.fullname;
     }),
-  deleteCurrency: protectedProcedure
+  // READ
+  getCurrencies: publicProcedure.query(async () => {
+    const currencies = await prisma.currency.findMany({
+      orderBy: {
+        index: 'asc',
+      },
+    });
+
+    return {
+      currencies,
+    };
+  }),
+  // UPDATE
+  updateCurrencies: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        currencies: z
+          .object({
+            id: z.number(),
+            buy: z.number(),
+            sell: z.number(),
+          })
+          .array(),
       }),
     )
     .mutation(async ({ input }) => {
-      try {
-        const deleteCurrency = await prisma.currency.delete({
+      const currenciesToUpdate: Prisma.Prisma__CurrencyClient<Currency, never>[] = [];
+
+      input.currencies.forEach((currency) => {
+        const currencyUpdateRequest = prisma.currency.update({
           where: {
-            id: input.id,
+            id: currency.id,
+          },
+          data: {
+            buy: currency.buy,
+            sell: currency.sell,
           },
         });
 
+        currenciesToUpdate.push(currencyUpdateRequest);
+      });
+
+      try {
+        await Promise.all(currenciesToUpdate);
+
         return {
-          currencyId: deleteCurrency.id,
           status: 200,
         };
       } catch (error) {
         return {
-          currencyId: input.id,
           status: 500,
         };
       }
@@ -60,6 +88,7 @@ export const appRouter = router({
         currencies: z
           .object({
             id: z.number(),
+            index: z.number(),
             name: z.string(),
             fullname: z.string(),
             image: z.string(),
@@ -82,6 +111,32 @@ export const appRouter = router({
         };
       } catch (error) {
         return {
+          status: 500,
+        };
+      }
+    }),
+  // DELETE
+  deleteCurrency: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      try {
+        const deleteCurrency = await prisma.currency.delete({
+          where: {
+            id: input.id,
+          },
+        });
+
+        return {
+          currencyId: deleteCurrency.id,
+          status: 200,
+        };
+      } catch (error) {
+        return {
+          currencyId: input.id,
           status: 500,
         };
       }
