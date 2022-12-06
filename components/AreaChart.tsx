@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Area,
-  AreaChart,
-  Legend,
-  Line,
-  LineChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-} from 'recharts';
+import { Legend, Line, LineChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const data = [
   {
