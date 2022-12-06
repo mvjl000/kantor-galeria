@@ -32,11 +32,12 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteCurrency = trpc.deleteCurrency.useMutation();
+  const updateCurrencies = trpc.updateCurrencies.useMutation();
   const reindexCurrencies = trpc.reindexCurrencies.useMutation();
   const utils = trpc.useContext();
 
   useEffect(() => {
-    // Runs every time when currencies change to keep sortableItems up with currencies
+    // Runs every time the currencies change to keep the sortable items consistent with the currencies
     setItems(currencies);
   }, [currencies]);
 
@@ -53,19 +54,23 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   );
 
   const handleReindex = async (currencies: CurrencyType[]) => {
-    const formattedCurrencies = currencies.map((item) => {
+    const formattedCurrencies = currencies.map((item, index) => {
       return {
         ...item,
+        index,
         buy: Number(item.buy),
         sell: Number(item.sell),
       };
     });
 
     setIsLoading(true);
-
-    await reindexCurrencies.mutateAsync({ currencies: formattedCurrencies });
-
-    setIsLoading(false);
+    try {
+      await reindexCurrencies.mutateAsync({ currencies: formattedCurrencies });
+    } catch (error) {
+      errorToast('Nie udało się zmienić kolejności waluty!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -86,15 +91,48 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
   };
 
   const handleDeleteCurrency = async (id: number) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await deleteCurrency.mutateAsync({ id });
       // Refetch table data
       await utils.getCurrencies.fetch();
-      setIsLoading(false);
     } catch (error) {
       errorToast('Nie udało się usunąć waluty!');
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleSaveTable = async () => {
+    setIsLoading(true);
+    try {
+      const currencies = items.map((currency) => ({
+        id: currency.id,
+        buy: Number(currency.buy),
+        sell: Number(currency.sell),
+      }));
+
+      await updateCurrencies.mutateAsync({ currencies });
+    } catch (error) {
+      errorToast('Nie udało się zapisać zmian!');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [currencyName, priceKey] = event.target.name.split('-');
+    const { value } = event.target;
+
+    const newCurrencies = items.map((currency) => {
+      if (currencyName !== currency.name) return currency;
+
+      return {
+        ...currency,
+        [priceKey]: value.replace(',', '.'),
+      };
+    });
+    setItems(newCurrencies);
   };
 
   return (
@@ -126,6 +164,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
                 <TableCurrencyItem
                   key={currency.id}
                   currency={currency}
+                  handleInputChange={handleInputChange}
                   handleDeleteCurrency={handleDeleteCurrency}
                 />
               ))}
@@ -133,7 +172,7 @@ const CurrenciesTable: React.FC<CurrenciesTableProps> = ({ currencies }) => {
           </DndContext>
         </tbody>
       </StyledTable>
-      <TableSubmitButton disabled={false} aria-label="Zapisz">
+      <TableSubmitButton disabled={false} onClick={handleSaveTable} aria-label="Zapisz">
         Zapisz
       </TableSubmitButton>
     </TableWrapper>
