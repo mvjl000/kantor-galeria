@@ -1,5 +1,7 @@
 import React from 'react';
 import { Legend, Line, LineChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { PriceHistory } from '../pages/types';
+import { monthsFromatterPL } from '../utils/formatters';
 
 const data = [
   {
@@ -39,14 +41,39 @@ const data = [
   },
 ];
 
-const AreaChartComponent: React.FC = () => {
+interface AreaChartProps {
+  price_history: PriceHistory[] | undefined;
+}
+
+const AreaChartComponent: React.FC<AreaChartProps> = ({ price_history }) => {
+  if (!price_history) {
+    return <p>Something went wrong</p>;
+  }
+
   return (
     <ResponsiveContainer width="99%" height="99%">
-      <LineChart data={data} margin={{ top: 0, right: 50, left: 0, bottom: 0 }}>
-        <XAxis dataKey="date" />
+      <LineChart data={price_history} margin={{ top: 0, right: 50, left: 0, bottom: 0 }}>
+        <XAxis
+          dataKey="date"
+          tickFormatter={(dateString) => {
+            const date = new Date(dateString);
+
+            return `${date.getDate()} ${monthsFromatterPL(date.getMonth())}`;
+          }}
+        />
         <YAxis domain={[3.5, 4.5]} />
-        <Tooltip />
-        <Legend />
+        <Tooltip
+          labelFormatter={(dateString) => {
+            const date = new Date(dateString);
+
+            return `${date.getDate()} ${monthsFromatterPL(date.getMonth())}`;
+          }}
+          formatter={(value: number, name: string) => [
+            value,
+            name === 'buy' ? 'Kupno' : 'Sprzedaż',
+          ]}
+        />
+        <Legend formatter={(value) => (value === 'buy' ? 'Kupno' : 'Sprzedaż')} />
         <Line type="monotone" dataKey="buy" stroke="#0052b4" />
         <Line type="monotone" dataKey="sell" stroke="#82ca9d" />
       </LineChart>

@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC } from 'react';
 import { CurrencyType } from '../../../pages/types';
 import {
   FlagWrapper,
@@ -11,12 +11,12 @@ import {
 
 interface CurrencyProps {
   data: CurrencyType;
-  handleOpenModal: MouseEventHandler<HTMLButtonElement>;
+  handleCurrencyClick: (currency: CurrencyType) => void;
 }
 
-const Currency: FC<CurrencyProps> = ({ data, handleOpenModal }) => {
+const Currency: FC<CurrencyProps> = ({ data, handleCurrencyClick }) => {
   return (
-    <Wrapper onClick={handleOpenModal}>
+    <Wrapper onClick={() => handleCurrencyClick(data)}>
       <CurrencyInfoWrapper>
         <FlagWrapper>
           <img alt={`flaga ${data.name}`} src={data.image} />

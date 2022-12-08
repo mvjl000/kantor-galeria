@@ -19,10 +19,13 @@ export const appRouter = router({
     .mutation(async ({ input }) => {
       const count = await prisma.currency.count();
 
+      const date = new Date();
+
       const currency = await prisma.currency.create({
         data: {
           ...input,
           index: count,
+          price_history: [{ date: date.toISOString(), buy: input.buy, sell: input.sell }],
         },
       });
 
@@ -94,6 +97,9 @@ export const appRouter = router({
             image: z.string(),
             buy: z.number(),
             sell: z.number(),
+            price_history: z
+              .object({ date: z.string(), buy: z.number(), sell: z.number() })
+              .array(),
           })
           .array(),
       }),

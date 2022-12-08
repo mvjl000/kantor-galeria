@@ -1,5 +1,7 @@
 import { Decimal } from '@prisma/client/runtime';
 
+export type PriceHistory = { date: string; buy: number; sell: number };
+
 interface CurrencyType {
   id: number;
   name: string;
@@ -7,6 +9,7 @@ interface CurrencyType {
   fullname: string;
   buy: Decimal;
   sell: Decimal;
+  price_history: PriceHistory[];
 }
 
 export type CurrencyResponse = {
