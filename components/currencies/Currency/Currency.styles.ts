@@ -60,6 +60,7 @@ export const CurrencyName = styled.p`
   text-align: left;
   span {
     font-weight: ${({ theme }) => theme.font.weight.medium};
+    color: red;
   }
 `;
 
