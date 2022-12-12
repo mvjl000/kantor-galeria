@@ -16,6 +16,7 @@ const Admin: NextPage = () => {
   return (
     <>
       <H1>Panel Administratora</H1>
+      {/* @ts-ignore */}
       <CurrenciesTable currencies={currencies.data.currencies} />
       <CurrencyForm />
       <Options />
