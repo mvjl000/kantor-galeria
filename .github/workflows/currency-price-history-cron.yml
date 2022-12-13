@@ -1,0 +1,16 @@
+name: currency-price-history-cron
+on:
+  schedule:
+    - cron: '30 12 * * *'
+  # TEST CRON 1
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 Calling api route"
+      - name: Call update currency price history api route
+        run: |
+          curl --request POST \
+          --url 'https://kantor-galeria.vercel.app/api/cron' \
+          --header 'Authorization: Bearer qweqwe123}'
+      - run: echo "🎉 This job's status is ${{ job.status }}"
