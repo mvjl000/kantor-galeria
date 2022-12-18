@@ -4,7 +4,7 @@ export type PriceHistory = Prisma.JsonValue[];
 
 export type CurrencyType = Currency;
 
-interface FlagUploadResponse {
+export interface FlagUploadResponse {
   asset_id: string;
   public_id: string;
   version: number;

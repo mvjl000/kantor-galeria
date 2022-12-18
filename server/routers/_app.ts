@@ -97,9 +97,7 @@ export const appRouter = router({
             image: z.string(),
             buy: z.number(),
             sell: z.number(),
-            price_history: z
-              .object({ date: z.string(), buy: z.number(), sell: z.number() })
-              .array(),
+            price_history: z.any().array(),
           })
           .array(),
       }),
