@@ -61,7 +61,7 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
               aria-label="Akcje"
               onClick={handleToggleActions}
             >
-              <Image src={ActionDots} width={5} height={25} />
+              <Image src={ActionDots} width={5} height={25} alt="Akcje" />
             </button>
           </td>
         </>
@@ -88,7 +88,7 @@ const TableCurrencyItem: React.FC<TableCurrencyItemProps> = ({
               aria-label="Akcje"
               onClick={handleToggleActions}
             >
-              <Image src={ActionDots} width={5} height={25} />
+              <Image src={ActionDots} width={5} height={25} alt="Akcje" />
             </button>
           </td>
         </>
