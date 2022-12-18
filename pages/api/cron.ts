@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PRICE_HISTORY_DAY_RANGE } from '../../config';
+import { env } from '../../env/server.mjs';
 
 const prisma = new PrismaClient();
 
@@ -13,8 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { authorization } = req.headers;
 
-    //   if (authorization !== `Bearer ${process.env.API_SECRET_KEY}`) {
-    if (authorization !== `Bearer qweqwe123`) {
+    if (authorization !== `Bearer ${env.CRON_API_KEY}`) {
       res.status(401).json({ success: false, message: 'Wrong token!' });
     }
 
@@ -63,7 +63,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json({ success: true, message: 'Price history updated.' });
   } catch (err) {
-    //   res.status(500).json({ success: false, message: err.message });
-    res.status(500).json({ success: false, message: 'Something went wrong' });
+    res.status(500).json({ success: false, message: err });
   }
 }
