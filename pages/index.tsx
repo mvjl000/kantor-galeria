@@ -34,11 +34,10 @@ const Home: NextPage = () => {
   return (
     <CurrenciesList>
       {currencies.data.currencies.map((item, index) => (
-        // @ts-ignore
         <Currency key={index} data={item} handleCurrencyClick={handleOpenModal} />
       ))}
       <Modal isOpen={isModalOpen} onRequestClose={handleCloseModal} contentLabel="Wykres waluty">
-        <AreaChartComponent price_history={clickedCurrency?.price_history} />
+        {clickedCurrency && <AreaChartComponent price_history={clickedCurrency.price_history} />}
       </Modal>
     </CurrenciesList>
   );

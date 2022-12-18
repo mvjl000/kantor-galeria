@@ -15,5 +15,5 @@ model Currency {
   fullname      String
   buy           Decimal
   sell          Decimal
-  price_history Json
+  price_history Json[]
 }

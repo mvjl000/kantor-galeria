@@ -2,52 +2,32 @@ import React, { useMemo } from 'react';
 import { Legend, Line, LineChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { PriceHistory } from '../pages/types';
 import { monthsFromatterPL } from '../utils/formatters';
-
-const data = [
-  {
-    date: '2022-12-02T07:56:48.816Z',
-    buy: 3.82,
-    sell: 3.9,
-  },
-  {
-    date: '2022-12-03T07:56:48.816Z',
-    buy: 3.83,
-    sell: 3.91,
-  },
-  {
-    date: '2022-12-04T07:56:48.816Z',
-    buy: 3.79,
-    sell: 3.81,
-  },
-  {
-    date: '2022-12-05T07:56:48.816Z',
-    buy: 3.79,
-    sell: 3.81,
-  },
-  {
-    date: '2022-12-06T07:56:48.816Z',
-    buy: 3.85,
-    sell: 3.87,
-  },
-  {
-    date: '2022-12-07T07:56:48.816Z',
-    buy: 3.86,
-    sell: 3.88,
-  },
-  {
-    date: '2022-12-08T07:56:48.816Z',
-    buy: 3.75,
-    sell: 3.82,
-  },
-];
+import { z } from 'zod';
+import { errorToast } from '../utils/toasts';
 
 interface AreaChartProps {
-  price_history: PriceHistory[] | undefined;
+  price_history: PriceHistory;
 }
+
+const priceHistorySchema = z
+  .object({
+    date: z.string(),
+    buy: z.number(),
+    sell: z.number(),
+  })
+  .array();
 
 const AreaChartComponent: React.FC<AreaChartProps> = ({ price_history }) => {
   const yAxisRange = useMemo(() => {
-    const yAxisRangeValues = data.flatMap(({ buy, sell }) => {
+    // Validates price_history type
+    const { success } = priceHistorySchema.safeParse(price_history);
+
+    if (!success) {
+      errorToast('Nie udało się stworzyć wykresu!');
+      return false;
+    }
+
+    const yAxisRangeValues = price_history.flatMap(({ buy, sell }: any) => {
       return [buy, sell];
     });
 
@@ -58,13 +38,13 @@ const AreaChartComponent: React.FC<AreaChartProps> = ({ price_history }) => {
     return [minValue - 0.1, maxValue + 0.1];
   }, []);
 
-  if (!price_history) {
+  if (!price_history || yAxisRange === false) {
     return <p>Something went wrong</p>;
   }
 
   return (
     <ResponsiveContainer width="99%" height="99%">
-      <LineChart data={data} margin={{ top: 0, right: 50, left: 0, bottom: 0 }}>
+      <LineChart data={price_history} margin={{ top: 0, right: 50, left: 0, bottom: 0 }}>
         <XAxis
           dataKey="date"
           tickFormatter={(dateString) => {

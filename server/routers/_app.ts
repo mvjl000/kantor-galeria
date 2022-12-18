@@ -19,13 +19,13 @@ export const appRouter = router({
     .mutation(async ({ input }) => {
       const count = await prisma.currency.count();
 
-      const date = new Date();
+      const date = new Date().toISOString();
 
       const currency = await prisma.currency.create({
         data: {
           ...input,
           index: count,
-          price_history: [{ date: date.toISOString(), buy: input.buy, sell: input.sell }],
+          price_history: [{ date, sell: input.sell, buy: input.buy }],
         },
       });
 
@@ -74,7 +74,7 @@ export const appRouter = router({
       });
 
       try {
-        await Promise.all(currenciesToUpdate);
+        await Promise.allSettled(currenciesToUpdate);
 
         return {
           status: 200,

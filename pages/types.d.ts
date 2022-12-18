@@ -1,22 +1,8 @@
-import { Decimal } from '@prisma/client/runtime';
+import { Currency, Prisma } from '@prisma/client';
 
-export type PriceHistory = { date: string; buy: number; sell: number };
+export type PriceHistory = Prisma.JsonValue[];
 
-interface CurrencyType {
-  id: number;
-  name: string;
-  image: string;
-  fullname: string;
-  buy: Decimal;
-  sell: Decimal;
-  price_history: PriceHistory[];
-}
-
-export type CurrencyResponse = {
-  data: {
-    currencies: CurrencyType[];
-  };
-};
+export type CurrencyType = Currency;
 
 interface FlagUploadResponse {
   asset_id: string;
