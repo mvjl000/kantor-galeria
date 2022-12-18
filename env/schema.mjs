@@ -1,8 +1,6 @@
 import { z } from 'zod';
 
 export const serverSchema = z.object({
-  API_URL: z.string().url(),
-  UPLOADS_URL: z.string().url(),
   AUTH0_SECRET: z.string().length(64),
   AUTH0_BASE_URL: z.string().url(),
   AUTH0_ISSUER_BASE_URL: z.string().url(),
