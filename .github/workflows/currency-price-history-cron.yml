@@ -1,7 +1,7 @@
 name: currency-price-history-cron
 on:
   schedule:
-    - cron: '20 12 * * *'
+    - cron: '50 17 * * *'
   # TEST CRON 1
 jobs:
   cron:
@@ -14,3 +14,4 @@ jobs:
           --url 'https://kantor-galeria.vercel.app/api/cron' \
           --header 'Authorization: Bearer qweqwe123}'
       - run: echo "🎉 This job's status is ${{ job.status }}"
+      - run: echo "🎉 test ${{ secrets.CRON_API_KEY }}"
