@@ -1,7 +1,7 @@
 name: currency-price-history-cron
 on:
   schedule:
-    - cron: '50 17 * * *'
+    - cron: '50 18 * * *'
   # TEST CRON 1
 jobs:
   cron:
